@@ -1,157 +1,149 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Générateur de signature - Groupe Potel & Chabot</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      margin: 40px auto;
+      max-width: 700px;
+      line-height: 1.5;
+      color: #000;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+    input, select {
+      width: 100%;
+      padding: 6px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+    #preview-container {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-top: 25px;
+      background-color: #f9f9f9;
+    }
+    .generate-btn {
+      display: block;
+      margin: 25px auto;
+      background-color: #0033cc;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .generate-btn:hover {
+      background-color: #001f80;
+    }
   </style>
 </head>
 <body>
-<p class="p1"><b>&lt;!DOCTYPE html&gt;</b></p>
-<p class="p1"><b>&lt;html lang="fr"&gt;</b></p>
-<p class="p1"><b>&lt;head&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">  </span>&lt;title&gt;Générateur de signature - Groupe Potel &amp; Chabot&lt;/title&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">  </span>&lt;style&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>body {</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>font-family: Georgia, serif;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>margin: 40px auto;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>max-width: 700px;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>line-height: 1.5;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>color: #000;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>}</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>h1 {</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>text-align: center;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>margin-bottom: 30px;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>}</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>label {</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>font-weight: bold;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>display: block;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>margin-top: 10px;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>}</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>input, select {</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>width: 100%;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>padding: 6px;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>margin-top: 4px;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>border: 1px solid #ccc;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>border-radius: 4px;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>font-family: inherit;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>}</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>#preview {</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>border: 1px solid #ddd;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>padding: 15px;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>margin-top: 25px;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>}</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>.signature-table td {</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>vertical-align: middle;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>}</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>.generate-btn {</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>display: block;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>margin: 25px auto;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>background-color: #0033cc;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>color: white;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>padding: 10px 20px;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>border: none;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>border-radius: 5px;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>font-size: 15px;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>cursor: pointer;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>}</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>.generate-btn:hover {</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>background-color: #001f80;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>}</b></p>
-<p class="p1"><b><span class="Apple-converted-space">  </span>&lt;/style&gt;</b></p>
-<p class="p1"><b>&lt;/head&gt;</b></p>
-<p class="p1"><b>&lt;body&gt;</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">  </span>&lt;h1&gt;Générateur de signature e-mail&lt;/h1&gt;</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">  </span>&lt;form id="signatureForm"&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;label&gt;Prénom&lt;/label&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;input type="text" id="firstName" placeholder="Ex : Angèle"&gt;</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;label&gt;Nom&lt;/label&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;input type="text" id="lastName" placeholder="Ex : Havard"&gt;</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;label&gt;Poste&lt;/label&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;input type="text" id="jobTitle" placeholder="Ex : Directrice Marketing et Scénographie"&gt;</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;label&gt;Email&lt;/label&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;input type="email" id="email" placeholder="Ex : angele.havard@poteletchabot.fr"&gt;</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;label&gt;Téléphone principal&lt;/label&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;input type="text" id="phone1" placeholder="Ex : +33 1 53 23 15 42"&gt;</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;label&gt;Téléphone secondaire (optionnel)&lt;/label&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;input type="text" id="phone2" placeholder="Ex : +33 6 12 34 56 78"&gt;</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;label&gt;Marque&lt;/label&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;select id="brand"&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>&lt;option value="groupe"&gt;Groupe Potel &amp; Chabot&lt;/option&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>&lt;option value="potel"&gt;Potel &amp; Chabot&lt;/option&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>&lt;option value="saintclair"&gt;Saint Clair&lt;/option&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>&lt;option value="dalloyau"&gt;Dalloyau&lt;/option&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>&lt;/select&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">  </span>&lt;/form&gt;</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">  </span>&lt;div id="preview"&gt;&lt;/div&gt;</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">  </span>&lt;button class="generate-btn" onclick="downloadSignature()"&gt;Télécharger ma signature&lt;/button&gt;</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">  </span>&lt;script&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>const blobLogo = "blob:https://portal.crossware365.com/a0e88162-a6c7-4661-a431-6e8a58c39d32";</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>const formFields = ['firstName', 'lastName', 'jobTitle', 'email', 'phone1', 'phone2', 'brand'];</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>formFields.forEach(id =&gt; document.getElementById(id).addEventListener('input', updatePreview));</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>function updatePreview() {</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>const firstName = document.getElementById('firstName').value.trim();</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>const lastName = document.getElementById('lastName').value.trim();</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>const jobTitle = document.getElementById('jobTitle').value.trim();</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>const email = document.getElementById('email').value.trim();</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>const phone1 = document.getElementById('phone1').value.trim();</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>const phone2 = document.getElementById('phone2').value.trim();</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>const signatureHTML = `</b></p>
-<p class="p1"><b><span class="Apple-converted-space">        </span>&lt;table cellpadding="0" cellspacing="0" class="signature-table" style="font-family: Georgia, serif; font-size: 13px; line-height: 1.4; color: #000000;"&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">          </span>&lt;tr&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">            </span>&lt;td style="vertical-align: middle; padding-right: 15px;"&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">              </span>&lt;img src="${blobLogo}" alt="Logo" style="display: block; width: 220px; height: auto; border: none;"&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">            </span>&lt;/td&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">            </span>&lt;td style="vertical-align: middle;"&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">              </span>&lt;div style="font-weight: bold; font-size: 14px; text-transform: uppercase;"&gt;${firstName} ${lastName}&lt;/div&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">              </span>&lt;div style="font-style: italic; font-size: 13px;"&gt;${jobTitle}&lt;/div&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">              </span>&lt;div style="margin-top: 6px; font-size: 13px;"&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">                </span>&lt;a href="mailto:${email}" style="color: #0033cc; text-decoration: none;"&gt;${email}&lt;/a&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">              </span>&lt;/div&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">              </span>&lt;div style="margin-top: 4px; font-size: 13px;"&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">                </span>${phone1 ? phone1 : ''}${phone1 &amp;&amp; phone2 ? ' — ' : ''}${phone2 ? phone2 : ''}</b></p>
-<p class="p1"><b><span class="Apple-converted-space">              </span>&lt;/div&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">            </span>&lt;/td&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">          </span>&lt;/tr&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">        </span>&lt;/table&gt;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>`;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>document.getElementById('preview').innerHTML = signatureHTML;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>}</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>function downloadSignature() {</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>const html = document.getElementById('preview').innerHTML;</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>const blob = new Blob([html], { type: 'text/html' });</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>const link = document.createElement('a');</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>link.href = URL.createObjectURL(blob);</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>link.download = 'signature.html';</b></p>
-<p class="p1"><b><span class="Apple-converted-space">      </span>link.click();</b></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>}</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b><span class="Apple-converted-space">    </span>updatePreview();</b></p>
-<p class="p1"><b><span class="Apple-converted-space">  </span>&lt;/script&gt;</b></p>
-<p class="p2"><b></b><br></p>
-<p class="p1"><b>&lt;/body&gt;</b></p>
-<p class="p1"><b>&lt;/html&gt;</b></p>
+
+  <h1>Générateur de signature e-mail</h1>
+
+  <form id="signatureForm">
+    <label>Prénom</label>
+    <input type="text" id="firstName" placeholder="Ex : Angèle">
+
+    <label>Nom</label>
+    <input type="text" id="lastName" placeholder="Ex : Havard">
+
+    <label>Poste</label>
+    <input type="text" id="jobTitle" placeholder="Ex : Directrice Marketing et Scénographie">
+
+    <label>Email</label>
+    <input type="email" id="email" placeholder="Ex : angele.havard@poteletchabot.fr">
+
+    <label>Téléphone principal</label>
+    <input type="text" id="phone1" placeholder="Ex : +33 1 53 23 15 42">
+
+    <label>Téléphone secondaire (optionnel)</label>
+    <input type="text" id="phone2" placeholder="Ex : +33 6 12 34 56 78">
+
+    <label>Marque</label>
+    <select id="brand">
+      <option value="groupe">Groupe Potel & Chabot</option>
+      <option value="potel">Potel & Chabot</option>
+      <option value="saintclair">Saint Clair</option>
+      <option value="dalloyau">Dalloyau</option>
+    </select>
+  </form>
+
+  <h3 style="margin-top: 30px;">Aperçu de votre signature :</h3>
+  <div id="preview-container">
+    <div id="preview">Votre signature apparaîtra ici.</div>
+  </div>
+
+  <button class="generate-btn" onclick="downloadSignature()">Télécharger ma signature</button>
+
+  <script>
+    const blobLogo = "blob:https://portal.crossware365.com/a0e88162-a6c7-4661-a431-6e8a58c39d32";
+
+    const formFields = ['firstName', 'lastName', 'jobTitle', 'email', 'phone1', 'phone2', 'brand'];
+    formFields.forEach(id => document.getElementById(id).addEventListener('input', updatePreview));
+
+    function updatePreview() {
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const jobTitle = document.getElementById('jobTitle').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone1 = document.getElementById('phone1').value.trim();
+      const phone2 = document.getElementById('phone2').value.trim();
+
+      const signatureHTML = `
+        <table cellpadding="0" cellspacing="0" style="font-family: Georgia, serif; font-size: 13px; line-height: 1.4; color: #000000;">
+          <tr>
+            <td style="vertical-align: middle; padding-right: 15px;">
+              <img src="${blobLogo}" alt="Logo" style="display: block; width: 220px; height: auto; border: none;">
+            </td>
+            <td style="vertical-align: middle;">
+              <div style="font-weight: bold; font-size: 14px; text-transform: uppercase;">${firstName} ${lastName}</div>
+              <div style="font-style: italic; font-size: 13px;">${jobTitle}</div>
+              <div style="margin-top: 6px; font-size: 13px;">
+                <a href="mailto:${email}" style="color: #0033cc; text-decoration: none;">${email}</a>
+              </div>
+              <div style="margin-top: 4px; font-size: 13px;">
+                ${phone1 ? phone1 : ''}${phone1 && phone2 ? ' — ' : ''}${phone2 ? phone2 : ''}
+              </div>
+            </td>
+          </tr>
+        </table>
+      `;
+
+      document.getElementById('preview').innerHTML = signatureHTML;
+    }
+
+    function downloadSignature() {
+      const html = document.getElementById('preview').innerHTML;
+      const fileContent = `
+        <!DOCTYPE html>
+        <html>
+        <head><meta charset="UTF-8"></head>
+        <body>${html}</body>
+        </html>`;
+      const blob = new Blob([fileContent], { type: 'text/html' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'signature.html';
+      link.click();
+    }
+
+    updatePreview();
+  </script>
+
 </body>
 </html>
