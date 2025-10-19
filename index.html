@@ -1,324 +1,243 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Générateur de signature – Potel & Chabot</title>
   <style>
-    :root { color-scheme: light; }
-    html, body {
-      margin: 0;
-      padding: 0;
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
       background: #fff;
-      color: #000;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    .container {
-      max-width: 980px;
-      margin: 32px auto;
-      padding: 0 16px;
       color: #000;
     }
     h1 {
-      font-size: 22px;
-      margin: 0 0 20px 0;
       text-align: center;
       color: #000;
-      font-weight: 700;
+      margin-bottom: 30px;
     }
-    form label {
+    label {
       display: block;
-      font-weight: 600;
-      margin-top: 10px;
+      font-weight: bold;
+      margin-top: 15px;
       color: #000;
     }
-    form input, form select {
+    input, select {
       width: 100%;
-      box-sizing: border-box;
       padding: 8px;
-      margin-top: 6px;
+      margin-top: 5px;
       border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 14px;
-      color: #000;
-      background: #fff;
+      border-radius: 4px;
+      box-sizing: border-box;
     }
-    .actions {
+    .buttons {
       text-align: center;
-      margin-top: 16px;
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
+      margin: 20px 0;
     }
     button {
-      cursor: pointer;
+      padding: 12px 20px;
+      margin: 5px;
       border: none;
-      border-radius: 6px;
-      padding: 10px 16px;
-      color: #fff;
-      background: #0b57d0;
+      border-radius: 5px;
+      cursor: pointer;
       font-size: 14px;
     }
-    button.outlook { background: #0078d4; }
-    #previewContainer {
-      margin-top: 28px;
-      border: 1px solid #e5e5e5;
-      background: #fff;
+    .copy-btn {
+      background: #0066cc;
+      color: white;
     }
-    #previewHeader {
-      background: #f7f7f7;
-      border-bottom: 1px solid #e5e5e5;
-      padding: 10px 14px;
-      font-weight: 600;
-      color: #000;
+    .outlook-btn {
+      background: #0078d4;
+      color: white;
     }
     #preview {
-      padding: 18px 14px;
-      background: #fff;
-      color: #000;
-      overflow-x: auto;
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-top: 20px;
+      background: #f9f9f9;
+      min-height: 100px;
     }
     .instructions {
-      margin-top: 16px;
-      padding: 12px;
-      background: #f0f8ff;
-      border-radius: 6px;
-      font-size: 14px;
-      color: #333;
+      background: #e6f3ff;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 20px 0;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Générateur de signature – Potel & Chabot</h1>
+  <h1>Générateur de signature – Potel & Chabot</h1>
 
-    <form id="signatureForm">
-      <label for="firstName">Prénom</label>
-      <input id="firstName" type="text" placeholder="Ex : Angèle"/>
+  <form id="form">
+    <label>Prénom</label>
+    <input type="text" id="firstName" placeholder="Ex : Angèle">
 
-      <label for="lastName">Nom</label>
-      <input id="lastName" type="text" placeholder="Ex : Havard"/>
+    <label>Nom</label>
+    <input type="text" id="lastName" placeholder="Ex : Havard">
 
-      <label for="brand">Marque</label>
-      <select id="brand">
-        <option value="groupe">Groupe Potel & Chabot</option>
-        <option value="potel">Potel & Chabot</option>
-      </select>
+    <label>Marque</label>
+    <select id="brand">
+      <option value="groupe">Groupe Potel & Chabot</option>
+      <option value="potel">Potel & Chabot</option>
+    </select>
 
-      <label for="service">Service (optionnel)</label>
-      <input id="service" type="text" placeholder="Ex : SPORTS & ENTERTAINMENT"/>
+    <label>Service (optionnel)</label>
+    <input type="text" id="service" placeholder="Ex : SPORTS & ENTERTAINMENT">
 
-      <label for="jobTitle">Poste</label>
-      <input id="jobTitle" type="text" placeholder="Ex : Directrice Marketing"/>
+    <label>Poste</label>
+    <input type="text" id="jobTitle" placeholder="Ex : Directrice Marketing">
 
-      <label for="address">Adresse</label>
-      <input id="address" type="text" value="3 rue de Chaillot — PARIS XVI"/>
+    <label>Adresse</label>
+    <input type="text" id="address" value="3 rue de Chaillot — PARIS XVI">
 
-      <label for="email">Email</label>
-      <input id="email" type="email" placeholder="prenom.nom@poteletchabot.fr"/>
+    <label>Email</label>
+    <input type="email" id="email" placeholder="prenom.nom@poteletchabot.fr">
 
-      <label for="phone1">Téléphone principal</label>
-      <input id="phone1" type="text" placeholder="+33 1 00 00 00 00"/>
+    <label>Téléphone principal</label>
+    <input type="text" id="phone1" placeholder="+33 1 00 00 00 00">
 
-      <label for="phone2">Téléphone secondaire (optionnel)</label>
-      <input id="phone2" type="text" placeholder="+33 6 00 00 00 00"/>
-    </form>
+    <label>Téléphone secondaire (optionnel)</label>
+    <input type="text" id="phone2" placeholder="+33 6 00 00 00 00">
+  </form>
 
-    <div class="actions">
-      <button type="button" onclick="copySignature()">📋 Copier la signature</button>
-      <button type="button" class="outlook" onclick="openOutlookSettings()">📧 Ouvrir Outlook</button>
-    </div>
+  <div class="buttons">
+    <button class="copy-btn" onclick="copySignature()">📋 Copier la signature</button>
+    <button class="outlook-btn" onclick="openOutlook()">📧 Ouvrir Outlook</button>
+  </div>
 
-    <div class="instructions">
-      <strong>Instructions :</strong> Copiez votre signature, puis collez-la directement dans Outlook Web ou Desktop via le bouton "Ouvrir Outlook".
-    </div>
+  <div class="instructions">
+    <strong>Instructions :</strong> Remplissez le formulaire, copiez votre signature, puis collez-la dans Outlook.
+  </div>
 
-    <div id="previewContainer">
-      <div id="previewHeader">Aperçu</div>
-      <div id="preview">Votre signature apparaîtra ici…</div>
-    </div>
+  <div id="preview">
+    <p>Votre signature apparaîtra ici...</p>
   </div>
 
   <script>
-    // Logos temporaires (remplace par tes vrais base64)
-    const logoGroupe = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzExIiBoZWlnaHQ9Ijc2IiB2aWV3Qm94PSIwIDAgMzExIDc2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIzMTEiIGhlaWdodD0iNzYiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzMzMyIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0Ij5HUk9VUEUgUE9URUwgJiBDSEFCT1Q8L3RleHQ+PC9zdmc+";
-    const logoPotel = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQ4IiBoZWlnaHQ9Ijc2IiB2aWV3Qm94PSIwIDAgMjQ4IDc2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyNDgiIGhlaWdodD0iNzYiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzMzMyIgZm9udC1mYW1pbHk9IlRpbWVzIiBmb250LXNpemU9IjE0Ij5QT1RFTCAmIENIQUJPVDwvdGV4dD48L3N2Zz4=";
+    // Logos de test
+    var logoGroupe = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzExIiBoZWlnaHQ9Ijc2IiB2aWV3Qm94PSIwIDAgMzExIDc2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIzMTEiIGhlaWdodD0iNzYiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzMzMyIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0Ij5HUk9VUEUgUE9URUwgJiBDSEFCT1Q8L3RleHQ+PC9zdmc+";
+    var logoPotel = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQ4IiBoZWlnaHQ9Ijc2IiB2aWV3Qm94PSIwIDAgMjQ4IDc2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyNDgiIGhlaWdodD0iNzYiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzMzMyIgZm9udC1mYW1pbHk9IlRpbWVzIiBmb250LXNpemU9IjE0Ij5QT1RFTCAmIENIQUJPVDwvdGV4dD48L3N2Zz4=";
 
-    // Format téléphone français
-    function formatPhoneReadable(raw) {
-      if (!raw) return "";
-      const cleaned = raw.replace(/[^\d+]/g, "");
+    function formatPhone(phone) {
+      if (!phone) return "";
+      var cleaned = phone.replace(/[^\d+]/g, "");
       
-      // Si commence par +33, format français
-      if (cleaned.startsWith("+33")) {
-        const digits = cleaned.substring(3);
+      if (cleaned.indexOf("+33") === 0) {
+        var digits = cleaned.substring(3);
         if (digits.length >= 9) {
-          // Format: +33 1 23 45 67 89
-          return "+33 " + digits.charAt(0) + " " + 
-                 digits.substring(1).replace(/(\d{2})(?=\d)/g, "$1 ").trim();
+          return "+33 " + digits.charAt(0) + " " + digits.substring(1, 3) + " " + 
+                 digits.substring(3, 5) + " " + digits.substring(5, 7) + " " + digits.substring(7, 9);
         }
-      }
-      // Si commence par 0, format français local
-      else if (cleaned.startsWith("0") && cleaned.length >= 10) {
-        // Format: 01 23 45 67 89
-        return cleaned.substring(0, 2) + " " + 
-               cleaned.substring(2).replace(/(\d{2})(?=\d)/g, "$1 ").trim();
+      } else if (cleaned.indexOf("0") === 0 && cleaned.length >= 10) {
+        return cleaned.substring(0, 2) + " " + cleaned.substring(2, 4) + " " + 
+               cleaned.substring(4, 6) + " " + cleaned.substring(6, 8) + " " + cleaned.substring(8, 10);
       }
       
-      return raw; // Retourne tel quel si pas reconnu
-    }
-
-    function formatPhones(p1, p2) {
-      const a = formatPhoneReadable(p1);
-      const b = formatPhoneReadable(p2);
-      if (a && b) return a + " — " + b;
-      return a || b || "";
+      return phone;
     }
 
     function updatePreview() {
-      const data = {
-        firstName: document.getElementById("firstName").value.trim(),
-        lastName: document.getElementById("lastName").value.trim(),
-        brand: document.getElementById("brand").value,
-        service: document.getElementById("service").value.trim(),
-        jobTitle: document.getElementById("jobTitle").value.trim(),
-        address: document.getElementById("address").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        phone1: document.getElementById("phone1").value.trim(),
-        phone2: document.getElementById("phone2").value.trim(),
-      };
+      var firstName = document.getElementById("firstName").value || "PRÉNOM";
+      var lastName = document.getElementById("lastName").value || "NOM";
+      var brand = document.getElementById("brand").value;
+      var service = document.getElementById("service").value;
+      var jobTitle = document.getElementById("jobTitle").value || "Poste";
+      var address = document.getElementById("address").value;
+      var email = document.getElementById("email").value || "email@exemple.com";
+      var phone1 = document.getElementById("phone1").value;
+      var phone2 = document.getElementById("phone2").value;
 
-      const isGroupe = data.brand === "groupe";
-      const fontFamily = isGroupe ? "Arial, Helvetica, sans-serif" : "Times, 'Times New Roman', serif";
-      const color = "#000";
+      var isGroupe = brand === "groupe";
+      var font = isGroupe ? "Arial, sans-serif" : "Times, serif";
+      
+      var phones = "";
+      if (phone1 && phone2) {
+        phones = formatPhone(phone1) + " — " + formatPhone(phone2);
+      } else if (phone1 || phone2) {
+        phones = formatPhone(phone1 || phone2);
+      }
 
-      const cleanService = data.service.replace(/^\s+|\s+$/g, "");
-      let serviceHtml = "";
-      if (cleanService) {
+      var serviceHtml = "";
+      if (service) {
         if (isGroupe) {
-          serviceHtml = '<div style="display:inline-block; background:#000; color:#fff; font-size:10pt; font-weight:bold; text-transform:uppercase; line-height:1; padding:4px 8px; margin-top:6px; letter-spacing:0.2px;">' + cleanService + '</div>';
+          serviceHtml = '<div style="display:inline-block; background:#000; color:#fff; font-size:10pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:6px;">' + service + '</div>';
         } else {
-          serviceHtml = " — " + cleanService;
+          serviceHtml = " — " + service;
         }
       }
 
-      const phones = formatPhones(data.phone1, data.phone2);
-      const hasTwoPhones = !!(data.phone1 && data.phone2);
-      const onePhoneOnly = (!!data.phone1 && !data.phone2) || (!!data.phone2 && !data.phone1);
-
-      let html = "";
+      var html = "";
       
       if (isGroupe) {
-        // GROUPE
-        const textHtml = '<div style="font-family:' + fontFamily + '; color:' + color + ';">' +
-          '<div style="font-size:12pt; font-weight:bold; text-transform:uppercase;">' +
-          (data.firstName || "PRÉNOM") + ' ' + (data.lastName || "NOM") + '</div>' +
-          (serviceHtml || "") +
-          '<div style="font-size:10pt; font-weight:bold; margin-top:6px; text-transform:uppercase;">' +
-          (data.jobTitle || "POSTE") + '</div>' +
-          (phones ? '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + phones + '</div>' : "") +
-          '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + (data.email || "email@exemple.com") + '</div>' +
-          '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + data.address + '</div>' +
-          '</div>';
-
-        html = '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + fontFamily + '; color:' + color + '; font-size:10pt;">' +
-          '<tr><td style="vertical-align:top;">' +
-          textHtml +
-          '<div style="margin-top:14px;">' +
-          '<img src="' + logoGroupe + '" width="311" height="76" style="display:block; border:none;">' +
-          '</div></td></tr></table>';
+        html = '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + font + '; font-size:10pt;">' +
+               '<tr><td style="vertical-align:top;">' +
+               '<div style="font-size:12pt; font-weight:bold; text-transform:uppercase;">' + firstName + ' ' + lastName + '</div>' +
+               serviceHtml +
+               '<div style="font-size:10pt; font-weight:bold; margin-top:6px; text-transform:uppercase;">' + jobTitle + '</div>' +
+               (phones ? '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + phones + '</div>' : '') +
+               '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + email + '</div>' +
+               '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + address + '</div>' +
+               '<div style="margin-top:14px;"><img src="' + logoGroupe + '" width="311" height="76" style="display:block;"></div>' +
+               '</td></tr></table>';
       } else {
-        // POTEL - Alignement amélioré selon ton image
-        const emailLine = onePhoneOnly
-          ? (data.email || "email@exemple.com") + " — " + formatPhoneReadable(data.phone1 || data.phone2)
-          : (data.email || "email@exemple.com");
-        const phonesBelowHtml = hasTwoPhones
-          ? '<div style="font-size:10pt; margin-top:3px;">' + phones + '</div>'
-          : "";
+        var emailLine = email;
+        var phonesLine = "";
+        
+        if (phone1 && phone2) {
+          phonesLine = '<div style="font-size:10pt; margin-top:3px;">' + phones + '</div>';
+        } else if (phone1 || phone2) {
+          emailLine = email + " — " + formatPhone(phone1 || phone2);
+        }
 
-        const textHtml = '<div style="font-family:' + fontFamily + '; color:' + color + ';">' +
-          '<div style="font-size:12pt; font-weight:bold; text-transform:uppercase; margin-bottom:2px;">' +
-          (data.firstName || "PRÉNOM") + ' ' + (data.lastName || "NOM") + '</div>' +
-          '<div style="font-size:10pt; margin-bottom:2px;">' +
-          (data.jobTitle || "Poste") + (serviceHtml || "") + '</div>' +
-          '<div style="font-size:10pt; margin-bottom:2px;">' + data.address + '</div>' +
-          '<div style="font-size:10pt; color:#0066cc; margin-bottom:2px;">' + emailLine + '</div>' +
-          phonesBelowHtml +
-          '</div>';
-
-        // Table avec barre verticale plus proche de ton image
-        html = '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + fontFamily + '; color:' + color + '; font-size:10pt;">' +
-          '<tr>' +
-          '<td style="vertical-align:top; padding-right:15px;">' +
-          '<img src="' + logoPotel + '" width="248" height="76" style="display:block; border:none;">' +
-          '</td>' +
-          '<td style="width:1px; background:#ccc; padding:0; margin:0;">' +
-          '<div style="width:1px; height:76px; background:#ccc; line-height:0; font-size:0;"></div>' +
-          '</td>' +
-          '<td style="vertical-align:top; padding-left:15px;">' +
-          textHtml +
-          '</td></tr></table>';
+        html = '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + font + '; font-size:10pt;">' +
+               '<tr>' +
+               '<td style="vertical-align:top; padding-right:15px;">' +
+               '<img src="' + logoPotel + '" width="248" height="76" style="display:block;">' +
+               '</td>' +
+               '<td style="width:1px; background:#ccc;"><div style="width:1px; height:76px;"></div></td>' +
+               '<td style="vertical-align:top; padding-left:15px;">' +
+               '<div style="font-size:12pt; font-weight:bold; text-transform:uppercase;">' + firstName + ' ' + lastName + '</div>' +
+               '<div style="font-size:10pt; margin-top:2px;">' + jobTitle + serviceHtml + '</div>' +
+               '<div style="font-size:10pt; margin-top:2px;">' + address + '</div>' +
+               '<div style="font-size:10pt; color:#0066cc; margin-top:2px;">' + emailLine + '</div>' +
+               phonesLine +
+               '</td></tr></table>';
       }
 
       document.getElementById("preview").innerHTML = html;
     }
 
-    // Attacher les événements
-    function attachEvents() {
-      const inputs = document.querySelectorAll("#signatureForm input, #signatureForm select");
-      inputs.forEach(function(el) {
-        el.addEventListener("input", updatePreview);
-        el.addEventListener("change", updatePreview);
-      });
+    function copySignature() {
+      var html = document.getElementById("preview").innerHTML;
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(html).then(function() {
+          alert("✅ Signature copiée !");
+        }).catch(function() {
+          alert("❌ Erreur de copie. Sélectionnez et copiez manuellement le contenu.");
+        });
+      } else {
+        alert("❌ Copie automatique non supportée. Sélectionnez et copiez manuellement le contenu de l'aperçu.");
+      }
+    }
+
+    function openOutlook() {
+      var url = "https://outlook.office.com/mail/options/mail/messageFormat";
+      window.open(url, '_blank');
+      alert("📧 Outlook s'ouvre dans un nouvel onglet.\nAllez dans Paramètres > Signature et collez votre signature !");
     }
 
     // Initialisation
-    document.addEventListener("DOMContentLoaded", function() {
-      attachEvents();
-      updatePreview();
-    });
-
-    if (document.readyState !== "loading") {
-      attachEvents();
-      updatePreview();
+    var inputs = document.querySelectorAll("input, select");
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].addEventListener("input", updatePreview);
+      inputs[i].addEventListener("change", updatePreview);
     }
 
-    async function copySignature() {
-      const html = document.getElementById("preview").innerHTML;
-      const blob = new Blob([html], { type: "text/html" });
-      try {
-        await navigator.clipboard.write([new ClipboardItem({ "text/html": blob })]);
-        alert("✅ Signature copiée ! Vous pouvez maintenant la coller dans Outlook.");
-      } catch (e) {
-        try {
-          await navigator.clipboard.writeText(html);
-          alert("✅ Signature copiée en texte. Collez-la dans Outlook.");
-        } catch {
-          alert("❌ Erreur de copie. Sélectionnez et copiez manuellement le contenu de l'aperçu.");
-        }
-      }
-    }
-
-    function openOutlookSettings() {
-      // Essaie d'ouvrir Outlook Web d'abord
-      const outlookWeb = "https://outlook.office.com/mail/options/mail/messageFormat";
-      
-      // Ouvre dans un nouvel onglet
-      const newWindow = window.open(outlookWeb, '_blank');
-      
-      if (!newWindow) {
-        // Si le popup est bloqué, donne des instructions
-        alert("📧 Instructions Outlook :\n\n" +
-              "1. Allez sur outlook.office.com ou ouvrez Outlook Desktop\n" +
-              "2. Paramètres > Signature\n" +
-              "3. Créez une nouvelle signature\n" +
-              "4. Collez votre signature copiée\n\n" +
-              "Pour Outlook Desktop : Fichier > Options > Courrier > Signatures");
-      } else {
-        alert("✅ Outlook s'ouvre dans un nouvel onglet.\nAllez dans Paramètres > Signature et collez votre signature !");
-      }
-    }
+    // Première génération
+    updatePreview();
   </script>
 </body>
 </html>
