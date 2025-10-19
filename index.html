@@ -216,19 +216,48 @@
       document.getElementById("preview").innerHTML = html;
     }
 
-    function copySignature() {
-      var html = document.getElementById("preview").innerHTML;
-      
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(html).then(function() {
-          alert("✅ Signature copiée !");
-        }).catch(function() {
-          alert("❌ Erreur de copie. Sélectionnez et copiez manuellement le contenu.");
-        });
-      } else {
-        alert("❌ Copie automatique non supportée. Sélectionnez et copiez manuellement le contenu de l'aperçu.");
-      }
-    }
+function copySignature() {
+  var html = document.getElementById("preview").innerHTML;
+  
+  // Créer un blob HTML pour la copie visuelle
+  var blob = new Blob([html], { type: "text/html" });
+  
+  // Essayer de copier au format HTML (visuel)
+  if (navigator.clipboard && navigator.clipboard.write) {
+    var clipboardItem = new ClipboardItem({
+      "text/html": blob
+    });
+    
+    navigator.clipboard.write([clipboardItem]).then(function() {
+      alert("✅ Signature copiée au format visuel !\nVous pouvez maintenant la coller directement dans Outlook.");
+    }).catch(function() {
+      // Fallback : sélection manuelle
+      fallbackCopy();
+    });
+  } else {
+    // Fallback pour navigateurs non compatibles
+    fallbackCopy();
+  }
+}
+
+function fallbackCopy() {
+  // Créer une sélection temporaire du contenu visuel
+  var preview = document.getElementById("preview");
+  var range = document.createRange();
+  range.selectNodeContents(preview);
+  
+  var selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+  
+  try {
+    document.execCommand('copy');
+    selection.removeAllRanges();
+    alert("✅ Signature sélectionnée et copiée !\nCollez-la directement dans Outlook (Ctrl+V).");
+  } catch (err) {
+    alert("❌ Copie automatique impossible.\n\n📋 Instructions manuelles :\n1. Sélectionnez tout le contenu de l'aperçu ci-dessous\n2. Copiez avec Ctrl+C\n3. Collez dans Outlook avec Ctrl+V");
+  }
+}
 
     function openOutlook() {
       var url = "https://outlook.office.com/mail/options/mail/messageFormat";
