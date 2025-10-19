@@ -159,6 +159,11 @@
       var isGroupe = brand === "groupe";
       var font = isGroupe ? "Arial, sans-serif" : "Times, serif";
       
+      // Transformation en majuscules pour l'affichage ET la copie
+      var firstNameUpper = firstName.toUpperCase();
+      var lastNameUpper = lastName.toUpperCase();
+      var jobTitleUpper = isGroupe ? jobTitle.toUpperCase() : jobTitle;
+      
       var phones = "";
       if (phone1 && phone2) {
         phones = formatPhone(phone1) + " — " + formatPhone(phone2);
@@ -166,49 +171,53 @@
         phones = formatPhone(phone1 || phone2);
       }
 
+      // Service sans espaces parasites
+      var cleanService = service.replace(/^\s+|\s+$/g, "");
       var serviceHtml = "";
-      if (service) {
+      if (cleanService) {
         if (isGroupe) {
-          serviceHtml = '<div style="display:inline-block; background:#000; color:#fff; font-size:10pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:6px;">' + service + '</div>';
+          serviceHtml = '<div style="display:inline-block; background:#000; color:#fff; font-size:10pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:6px; letter-spacing:0px;">' + cleanService.toUpperCase() + '</div>';
         } else {
-          serviceHtml = " — " + service;
+          serviceHtml = " — " + cleanService;
         }
       }
 
       var html = "";
       
       if (isGroupe) {
-        html = '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + font + '; font-size:10pt;">' +
+        html = '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + font + '; font-size:10pt; color:#000;">' +
                '<tr><td style="vertical-align:top;">' +
-               '<div style="font-size:12pt; font-weight:bold; text-transform:uppercase;">' + firstName + ' ' + lastName + '</div>' +
+               '<div style="font-size:12pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
                serviceHtml +
-               '<div style="font-size:10pt; font-weight:bold; margin-top:6px; text-transform:uppercase;">' + jobTitle + '</div>' +
+               '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + jobTitleUpper + '</div>' +
                (phones ? '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + phones + '</div>' : '') +
                '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + email + '</div>' +
                '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + address + '</div>' +
                '<div style="margin-top:14px;"><img src="' + logoGroupe + '" width="311" height="76" style="display:block; border:none;"></div>' +
                '</td></tr></table>';
       } else {
+        // POTEL - Amélioration selon ton image
         var emailLine = email;
         var phonesLine = "";
         
         if (phone1 && phone2) {
-          phonesLine = '<div style="font-size:10pt; margin-top:3px;">' + phones + '</div>';
+          phonesLine = '<div style="font-size:10pt; margin-top:3px; color:#000;">' + phones + '</div>';
         } else if (phone1 || phone2) {
           emailLine = email + " — " + formatPhone(phone1 || phone2);
         }
 
-        html = '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + font + '; font-size:10pt;">' +
+        // Logo plus grand et alignement amélioré selon ton image
+        html = '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + font + '; font-size:10pt; color:#000;">' +
                '<tr>' +
-               '<td style="vertical-align:top; padding-right:15px;">' +
-               '<img src="' + logoPotel + '" width="248" height="76" style="display:block; border:none;">' +
+               '<td style="vertical-align:middle; padding-right:18px;">' +
+               '<img src="' + logoPotel + '" width="280" height="86" style="display:block; border:none;">' +
                '</td>' +
-               '<td style="width:1px; background:#ccc;"><div style="width:1px; height:76px;"></div></td>' +
-               '<td style="vertical-align:top; padding-left:15px;">' +
-               '<div style="font-size:12pt; font-weight:bold; text-transform:uppercase;">' + firstName + ' ' + lastName + '</div>' +
-               '<div style="font-size:10pt; margin-top:2px;">' + jobTitle + serviceHtml + '</div>' +
-               '<div style="font-size:10pt; margin-top:2px;">' + address + '</div>' +
-               '<div style="font-size:10pt; color:#000; margin-top:2px;">' + emailLine + '</div>' +
+               '<td style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:86px; background:#bbb;"></div></td>' +
+               '<td style="vertical-align:middle; padding-left:18px;">' +
+               '<div style="font-size:14pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
+               '<div style="font-size:10pt; margin-top:2px; font-style:italic;">' + jobTitle + serviceHtml + '</div>' +
+               '<div style="font-size:10pt; margin-top:3px;">' + address + '</div>' +
+               '<div style="font-size:10pt; margin-top:3px;">' + emailLine + '</div>' +
                phonesLine +
                '</td></tr></table>';
       }
@@ -216,48 +225,26 @@
       document.getElementById("preview").innerHTML = html;
     }
 
-function copySignature() {
-  var html = document.getElementById("preview").innerHTML;
-  
-  // Créer un blob HTML pour la copie visuelle
-  var blob = new Blob([html], { type: "text/html" });
-  
-  // Essayer de copier au format HTML (visuel)
-  if (navigator.clipboard && navigator.clipboard.write) {
-    var clipboardItem = new ClipboardItem({
-      "text/html": blob
-    });
-    
-    navigator.clipboard.write([clipboardItem]).then(function() {
-      alert("✅ Signature copiée au format visuel !\nVous pouvez maintenant la coller directement dans Outlook.");
-    }).catch(function() {
-      // Fallback : sélection manuelle
-      fallbackCopy();
-    });
-  } else {
-    // Fallback pour navigateurs non compatibles
-    fallbackCopy();
-  }
-}
-
-function fallbackCopy() {
-  // Créer une sélection temporaire du contenu visuel
-  var preview = document.getElementById("preview");
-  var range = document.createRange();
-  range.selectNodeContents(preview);
-  
-  var selection = window.getSelection();
-  selection.removeAllRanges();
-  selection.addRange(range);
-  
-  try {
-    document.execCommand('copy');
-    selection.removeAllRanges();
-    alert("✅ Signature sélectionnée et copiée !\nCollez-la directement dans Outlook (Ctrl+V).");
-  } catch (err) {
-    alert("❌ Copie automatique impossible.\n\n📋 Instructions manuelles :\n1. Sélectionnez tout le contenu de l'aperçu ci-dessous\n2. Copiez avec Ctrl+C\n3. Collez dans Outlook avec Ctrl+V");
-  }
-}
+    async function copySignature() {
+      var html = document.getElementById("preview").innerHTML;
+      
+      try {
+        // Essaie de copier en tant qu'HTML formaté (pour Outlook)
+        var blob = new Blob([html], { type: 'text/html' });
+        var clipboardItem = new ClipboardItem({ 'text/html': blob });
+        await navigator.clipboard.write([clipboardItem]);
+        alert("✅ Signature copiée avec formatage ! Vous pouvez la coller dans Outlook.");
+      } catch (e) {
+        try {
+          // Fallback : copie HTML en texte
+          await navigator.clipboard.writeText(html);
+          alert("✅ Signature copiée (code HTML). Collez dans Outlook et le formatage sera appliqué.");
+        } catch (e2) {
+          // Dernière option : sélection manuelle
+          alert("❌ Copie automatique impossible.\n\nSélectionnez manuellement le contenu de l'aperçu et copiez-le (Ctrl+C).");
+        }
+      }
+    }
 
     function openOutlook() {
       var url = "https://outlook.office.com/mail/options/mail/messageFormat";
