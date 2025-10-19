@@ -205,17 +205,16 @@
         } else if (phone1 || phone2) {
           emailLine = email + " — " + formatPhone(phone1 || phone2);
         }
-
-        // Logo plus grand et alignement amélioré selon ton image
+        
         html = '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + font + '; font-size:10pt; color:#000;">' +
                '<tr>' +
                '<td style="vertical-align:middle; padding-right:18px;">' +
-               '<img src="' + logoPotel + '" width="280" height="86" style="display:block; border:none;">' +
+               '<img src="' + logoPotel + '" width="320" height="98" style="display:block; border:none;">' +
                '</td>' +
-               '<td style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:86px; background:#bbb;"></div></td>' +
+               '<td style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:98px; background:#bbb;"></div></td>' +
                '<td style="vertical-align:middle; padding-left:18px;">' +
                '<div style="font-size:14pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
-               '<div style="font-size:10pt; margin-top:2px;">' + jobTitle + serviceHtml + '</div>' +
+               '<div style="font-size:10pt; margin-top:2px; font-style:italic;">' + jobTitle + serviceHtml + '</div>' +
                '<div style="font-size:10pt; margin-top:3px;">' + address + '</div>' +
                '<div style="font-size:10pt; margin-top:3px;">' + emailLine + '</div>' +
                phonesLine +
