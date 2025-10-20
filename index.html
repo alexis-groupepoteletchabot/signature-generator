@@ -145,70 +145,64 @@
       return phone;
     }
 
-    function updatePreview() {
-      var firstName = document.getElementById("firstName").value || "PRÉNOM";
-      var lastName = document.getElementById("lastName").value || "NOM";
-      var brand = document.getElementById("brand").value;
-      var service = document.getElementById("service").value;
-      var jobTitle = document.getElementById("jobTitle").value || "Poste";
-      var address = document.getElementById("address").value;
-      var email = document.getElementById("email").value || "email@exemple.com";
-      var phone1 = document.getElementById("phone1").value;
-      var phone2 = document.getElementById("phone2").value;
+  function updatePreview() {
+  var firstName = document.getElementById("firstName").value || "PRÉNOM";
+  var lastName = document.getElementById("lastName").value || "NOM";
+  var brand = document.getElementById("brand").value;
+  var service = document.getElementById("service").value;
+  var jobTitle = document.getElementById("jobTitle").value || "Poste";
+  var address = document.getElementById("address").value;
+  var email = document.getElementById("email").value || "email@exemple.com";
+  var phone1 = document.getElementById("phone1").value;
+  var phone2 = document.getElementById("phone2").value;
 
-      var isGroupe = brand === "groupe";
-      var font = isGroupe ? "Arial, sans-serif" : "Times, serif";
-      
-      // Transformation en majuscules pour l'affichage ET la copie
-      var firstNameUpper = firstName.toUpperCase();
-      var lastNameUpper = lastName.toUpperCase();
-      var jobTitleUpper = isGroupe ? jobTitle.toUpperCase() : jobTitle;
-      
-      var phones = "";
-      if (phone1 && phone2) {
-        phones = formatPhone(phone1) + " — " + formatPhone(phone2);
-      } else if (phone1 || phone2) {
-        phones = formatPhone(phone1 || phone2);
-      }
+  var isGroupe = brand === "groupe";
+  var font = isGroupe ? "Arial, sans-serif" : "Times, serif";
+  
+  // Transformation en majuscules pour l'affichage ET la copie
+  var firstNameUpper = firstName.toUpperCase();
+  var lastNameUpper = lastName.toUpperCase();
+  var jobTitleUpper = isGroupe ? jobTitle.toUpperCase() : jobTitle;
+  
+  var phones = "";
+  if (phone1 && phone2) {
+    phones = formatPhone(phone1) + " — " + formatPhone(phone2);
+  } else if (phone1 || phone2) {
+    phones = formatPhone(phone1 || phone2);
+  }
 
-      // Service sans espaces parasites
-      var cleanService = service.replace(/^\s+|\s+$/g, "");
-      var serviceHtml = "";
-      if (cleanService) {
-        if (isGroupe) {
-          serviceHtml = '<div style="display:inline-block; background:#000; color:#fff; font-size:10pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:6px; letter-spacing:0px;">' + cleanService.toUpperCase() + '</div>';
-        } else {
-          serviceHtml = " — " + cleanService;
-        }
-      }
+  // Service sans espaces parasites
+  var cleanService = service.replace(/^\s+|\s+$/g, "");
+  var serviceHtml = "";
+  if (cleanService) {
+    if (isGroupe) {
+      serviceHtml = '<div style="display:inline-block; background:#000; color:#fff; font-size:10pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:6px; letter-spacing:0px;">' + cleanService.toUpperCase() + '</div>';
+    } else {
+      serviceHtml = " — " + cleanService;
+    }
+  }
 
   var html = "";
   
   if (isGroupe) {
     // GROUPE - Version responsive
-  html = '<table style="width:100%; max-width:600px; font-family:' + font + '; font-size:10pt; color:#000;" cellpadding="0" cellspacing="0" border="0">' +
-         '<tr>' +
-         '<td class="logo-cell" style="vertical-align:middle; padding-right:18px;">' +
-         '<img src="' + logoPotel + '" style="display:block; border:none; max-width:100%; height:auto; width:320px;">' +
-         '</td>' +
-         '<td class="separator-cell" style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:98px; background:#bbb;"></div></td>' +
-         '<td class="text-cell" style="vertical-align:middle; padding-left:18px;">' +
-         '<div style="font-size:14pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
-         '<div style="font-size:10pt; margin-top:2px;">' + jobTitle + serviceHtml + '</div>' +
-         '<div style="font-size:10pt; margin-top:3px;">' + address + '</div>' +
-         '<div style="font-size:10pt; margin-top:3px;">' + emailLine + '</div>' +
-         phonesLine +
-         '</td></tr></table>' +
-         
-         // CSS responsive pour Potel
-         '<style>' +
-         '@media screen and (max-width: 480px) {' +
-         '  table { display: block !important; width: 100% !important; }' +
-         '  .logo-cell, .text-cell { display: block !important; width: 100% !important; text-align: center !important; padding: 10px 0 !important; }' +
-         '  .separator-cell { display: none !important; }' +
-         '  img { margin: 0 auto !important; max-width: 280px !important; }' +
-         '}' +
-         '</style>';
+    html = '<div style="font-family:' + font + '; font-size:10pt; color:#000; max-width:600px;">' +
+           '<div style="font-size:12pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
+           serviceHtml +
+           '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + jobTitleUpper + '</div>' +
+           (phones ? '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + phones + '</div>' : '') +
+           '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + email + '</div>' +
+           '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + address + '</div>' +
+           '<div style="margin-top:14px;"><img src="' + logoGroupe + '" style="display:block; border:none; max-width:100%; height:auto; width:311px;"></div>' +
+           '</div>' +
+           
+           // CSS responsive pour Groupe
+           '<style>' +
+           '@media screen and (max-width: 480px) {' +
+           '  div { text-align: center !important; }' +
+           '  img { margin: 0 auto !important; max-width: 280px !important; }' +
+           '}' +
+           '</style>';
   } else {
     // POTEL - Version responsive
     var emailLine = email;
@@ -219,30 +213,31 @@
     } else if (phone1 || phone2) {
       emailLine = email + " — " + formatPhone(phone1 || phone2);
     }
-  
-  html = '<table style="width:100%; max-width:750px; table-layout:fixed; font-family:' + font + '; font-size:10pt; color:#000;" cellpadding="0" cellspacing="0" border="0">' +
-         '<tr>' +
-         '<td class="logo-cell" style="vertical-align:middle; padding-right:15px; width:280px;">' +
-         '<img src="' + logoPotel + '" style="display:block; border:none; width:280px; height:86px;">' +
-         '</td>' +
-         '<td class="separator-cell" style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:86px; background:#bbb;"></div></td>' +
-         '<td class="text-cell" style="vertical-align:middle; padding-left:15px; width:auto;">' +
-         '<div style="font-size:12pt; font-weight:bold; white-space: nowrap;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
-         '<div style="font-size:10pt; margin-top:2px; white-space: nowrap;">' + jobTitle + serviceHtml + '</div>' +
-         '<div style="font-size:10pt; margin-top:3px; white-space: nowrap;">' + address + '</div>' +
-         '<div style="font-size:10pt; margin-top:3px; white-space: nowrap;">' + emailLine + '</div>' +
-         phonesLine +
-         '</td></tr></table>' +
-         
-         // CSS responsive pour Potel
-         '<style>' +
-         '@media screen and (max-width: 480px) {' +
-         '  table { display: block !important; width: 100% !important; }' +
-         '  .logo-cell, .text-cell { display: block !important; width: 100% !important; text-align: center !important; padding: 10px 0 !important; }' +
-         '  .separator-cell { display: none !important; }' +
-         '  img { margin: 0 auto !important; max-width: 280px !important; }' +
-         '}' +
-         '</style>';
+
+    html = '<table style="width:100%; max-width:750px; table-layout:fixed; font-family:' + font + '; font-size:10pt; color:#000;" cellpadding="0" cellspacing="0" border="0">' +
+           '<tr>' +
+           '<td class="logo-cell" style="vertical-align:middle; padding-right:15px; width:280px;">' +
+           '<img src="' + logoPotel + '" style="display:block; border:none; width:280px; height:86px;">' +
+           '</td>' +
+           '<td class="separator-cell" style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:86px; background:#bbb;"></div></td>' +
+           '<td class="text-cell" style="vertical-align:middle; padding-left:15px; width:auto;">' +
+           '<div style="font-size:12pt; font-weight:bold; white-space: nowrap;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
+           '<div style="font-size:10pt; margin-top:2px; white-space: nowrap;">' + jobTitle + serviceHtml + '</div>' +
+           '<div style="font-size:10pt; margin-top:3px; white-space: nowrap;">' + address + '</div>' +
+           '<div style="font-size:10pt; margin-top:3px; white-space: nowrap;">' + emailLine + '</div>' +
+           phonesLine +
+           '</td></tr></table>' +
+           
+           // CSS responsive pour Potel
+           '<style>' +
+           '@media screen and (max-width: 480px) {' +
+           '  table { display: block !important; width: 100% !important; }' +
+           '  .logo-cell, .text-cell { display: block !important; width: 100% !important; text-align: center !important; padding: 10px 0 !important; }' +
+           '  .separator-cell { display: none !important; }' +
+           '  img { margin: 0 auto !important; max-width: 280px !important; }' +
+           '}' +
+           '</style>';
+  }
 
   document.getElementById("preview").innerHTML = html;
 }
