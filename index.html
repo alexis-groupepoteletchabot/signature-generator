@@ -182,47 +182,65 @@
         }
       }
 
-      var html = "";
-      
-      if (isGroupe) {
-        html = '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + font + '; font-size:10pt; color:#000;">' +
-               '<tr><td style="vertical-align:top;">' +
-               '<div style="font-size:12pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
-               serviceHtml +
-               '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + jobTitleUpper + '</div>' +
-               (phones ? '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + phones + '</div>' : '') +
-               '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + email + '</div>' +
-               '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + address + '</div>' +
-               '<div style="margin-top:14px;"><img src="' + logoGroupe + '" width="311" height="76" style="display:block; border:none;"></div>' +
-               '</td></tr></table>';
-      } else {
-        // POTEL - Amélioration selon ton image
-        var emailLine = email;
-        var phonesLine = "";
-        
-        if (phone1 && phone2) {
-          phonesLine = '<div style="font-size:10pt; margin-top:3px; color:#000;">' + phones + '</div>';
-        } else if (phone1 || phone2) {
-          emailLine = email + " — " + formatPhone(phone1 || phone2);
-        }
-        
-        html = '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + font + '; font-size:10pt; color:#000;">' +
-               '<tr>' +
-               '<td style="vertical-align:middle; padding-right:18px;">' +
-               '<img src="' + logoPotel + '" width="320" height="98" style="display:block; border:none;">' +
-               '</td>' +
-               '<td style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:98px; background:#bbb;"></div></td>' +
-               '<td style="vertical-align:middle; padding-left:18px;">' +
-               '<div style="font-size:14pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
-               '<div style="font-size:10pt; margin-top:2px; font-style:italic;">' + jobTitle + serviceHtml + '</div>' +
-               '<div style="font-size:10pt; margin-top:3px;">' + address + '</div>' +
-               '<div style="font-size:10pt; margin-top:3px;">' + emailLine + '</div>' +
-               phonesLine +
-               '</td></tr></table>';
-      }
-
-      document.getElementById("preview").innerHTML = html;
+  var html = "";
+  
+  if (isGroupe) {
+    // GROUPE - Version responsive
+    html = '<div style="font-family:' + font + '; font-size:10pt; color:#000; max-width:600px;">' +
+           '<div style="font-size:12pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
+           serviceHtml +
+           '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + jobTitleUpper + '</div>' +
+           (phones ? '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + phones + '</div>' : '') +
+           '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + email + '</div>' +
+           '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + address + '</div>' +
+           '<div style="margin-top:14px;"><img src="' + logoGroupe + '" style="display:block; border:none; max-width:100%; height:auto; width:311px;"></div>' +
+           '</div>' +
+           
+           // CSS responsive pour Groupe
+           '<style>' +
+           '@media screen and (max-width: 480px) {' +
+           '  div { text-align: center !important; }' +
+           '  img { margin: 0 auto !important; max-width: 280px !important; }' +
+           '}' +
+           '</style>';
+  } else {
+    // POTEL - Version responsive
+    var emailLine = email;
+    var phonesLine = "";
+    
+    if (phone1 && phone2) {
+      phonesLine = '<div style="font-size:10pt; margin-top:3px; color:#000;">' + phones + '</div>';
+    } else if (phone1 || phone2) {
+      emailLine = email + " — " + formatPhone(phone1 || phone2);
     }
+
+    html = '<table style="width:100%; max-width:600px; font-family:' + font + '; font-size:10pt; color:#000;" cellpadding="0" cellspacing="0" border="0">' +
+           '<tr>' +
+           '<td class="logo-cell" style="vertical-align:middle; padding-right:18px;">' +
+           '<img src="' + logoPotel + '" style="display:block; border:none; max-width:100%; height:auto; width:320px;">' +
+           '</td>' +
+           '<td class="separator-cell" style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:98px; background:#bbb;"></div></td>' +
+           '<td class="text-cell" style="vertical-align:middle; padding-left:18px;">' +
+           '<div style="font-size:14pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
+           '<div style="font-size:10pt; margin-top:2px; font-style:italic;">' + jobTitle + serviceHtml + '</div>' +
+           '<div style="font-size:10pt; margin-top:3px;">' + address + '</div>' +
+           '<div style="font-size:10pt; margin-top:3px;">' + emailLine + '</div>' +
+           phonesLine +
+           '</td></tr></table>' +
+           
+           // CSS responsive pour Potel
+           '<style>' +
+           '@media screen and (max-width: 480px) {' +
+           '  table { display: block !important; width: 100% !important; }' +
+           '  .logo-cell, .text-cell { display: block !important; width: 100% !important; text-align: center !important; padding: 10px 0 !important; }' +
+           '  .separator-cell { display: none !important; }' +
+           '  img { margin: 0 auto !important; max-width: 280px !important; }' +
+           '}' +
+           '</style>';
+  }
+
+  document.getElementById("preview").innerHTML = html;
+}
 
     async function copySignature() {
       var html = document.getElementById("preview").innerHTML;
