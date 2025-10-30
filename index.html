@@ -176,7 +176,7 @@
       var serviceHtml = "";
       if (cleanService) {
         if (isGroupe) {
-          serviceHtml = '<div style="display:inline-block; background:#000; color:#fff; font-size:12pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:3px; letter-spacing:0px;">' + cleanService.toUpperCase() + '</div>';
+          serviceHtml = '<div style="display:inline-block; background:#000; color:#fff; font-size:12pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:1px; letter-spacing:0px;">' + cleanService.toUpperCase() + '</div>';
         } else {
           serviceHtml = " — " + cleanService;
         }
@@ -185,14 +185,14 @@
       var html = "";
       
       if (isGroupe) {
-        // GROUPE - Tout en 12pt, interligne plus fort entre poste et téléphone (18px)
-        html = '<div style="font-family:' + font + '; font-size:12pt; color:#000; max-width:600px;">' +
-               '<div style="font-size:12pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
+        // GROUPE - Interlignes réduits (1px) sauf entre Poste et Téléphone (24px)
+        html = '<div style="font-family:' + font + '; font-size:12pt; color:#000; max-width:600px; line-height:1.2;">' +
+               '<div style="font-size:12pt; font-weight:bold; margin-bottom:1px;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
                serviceHtml +
-               '<div style="font-size:12pt; font-weight:bold; margin-top:3px;">' + jobTitleUpper + '</div>' +
-               (phones ? '<div style="font-size:12pt; font-weight:bold; margin-top:18px;">' + phones + '</div>' : '') +
-               '<div style="font-size:12pt; font-weight:bold; margin-top:3px;">' + email + '</div>' +
-               '<div style="font-size:12pt; font-weight:bold; margin-top:3px;">' + address + '</div>' +
+               '<div style="font-size:12pt; font-weight:bold; margin-top:1px; margin-bottom:1px;">' + jobTitleUpper + '</div>' +
+               (phones ? '<div style="font-size:12pt; font-weight:bold; margin-top:24px; margin-bottom:1px;">' + phones + '</div>' : '') +
+               '<div style="font-size:12pt; font-weight:bold; margin-top:1px; margin-bottom:1px;">' + email + '</div>' +
+               '<div style="font-size:12pt; font-weight:bold; margin-top:1px;">' + address + '</div>' +
                '<div style="margin-top:14px;"><img src="' + logoGroupe + '" style="display:block; border:none; max-width:100%; height:auto; width:311px;"></div>' +
                '</div>' +
                '<style>' +
@@ -202,12 +202,12 @@
                '}' +
                '</style>';
       } else {
-        // POTEL - 14pt nom/prénom, 12pt reste, logo 320x98
+        // POTEL - 14pt nom/prénom, 12pt reste, logo 320x98, responsive amélioré
         var emailLine = email;
         var phonesLine = "";
         
         if (phone1 && phone2) {
-          phonesLine = '<div style="font-size:12pt; margin-top:3px; color:#000;">' + phones + '</div>';
+          phonesLine = '<div style="font-size:12pt; margin-top:3px; color:#000; white-space: nowrap;">' + phones + '</div>';
         } else if (phone1 || phone2) {
           emailLine = email + " — " + formatPhone(phone1 || phone2);
         }
@@ -215,7 +215,7 @@
         html = '<table style="width:100%; max-width:750px; table-layout:fixed; font-family:' + font + '; font-size:12pt; color:#000;" cellpadding="0" cellspacing="0" border="0">' +
                '<tr>' +
                '<td class="logo-cell" style="vertical-align:middle; padding-right:15px; width:320px;">' +
-               '<img src="' + logoPotel + '" style="display:block; border:none; width:320px; height:98px;">' +
+               '<img src="' + logoPotel + '" style="display:block; border:none; width:320px; height:98px; max-width:100%; height:auto;">' +
                '</td>' +
                '<td class="separator-cell" style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:98px; background:#bbb;"></div></td>' +
                '<td class="text-cell" style="vertical-align:middle; padding-left:15px; width:auto;">' +
@@ -226,11 +226,12 @@
                phonesLine +
                '</td></tr></table>' +
                '<style>' +
-               '@media screen and (max-width: 480px) {' +
+               '@media screen and (max-width: 768px) {' +
                '  table { display: block !important; width: 100% !important; }' +
                '  .logo-cell, .text-cell { display: block !important; width: 100% !important; text-align: center !important; padding: 10px 0 !important; }' +
                '  .separator-cell { display: none !important; }' +
-               '  img { margin: 0 auto !important; max-width: 280px !important; }' +
+               '  .text-cell div { white-space: normal !important; }' +
+               '  img { margin: 0 auto !important; max-width: 280px !important; width: 100% !important; height: auto !important; }' +
                '}' +
                '</style>';
       }
