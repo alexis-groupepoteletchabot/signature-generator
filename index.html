@@ -118,7 +118,8 @@
   </div>
 
   <div class="instructions">
-    <strong>Instructions :</strong> Remplissez le formulaire, copiez votre signature, puis collez-la dans Outlook.
+    <strong>Instructions :</strong> Remplissez le formulaire, copiez votre signature, puis collez-la dans Outlook.<br>
+    <strong>⚠️ Note :</strong> Si le logo Groupe n'apparaît pas bien sur fond noir, contactez-moi pour créer une version adaptée.
   </div>
 
   <div id="preview">
@@ -185,7 +186,7 @@
       var html = "";
       
       if (isGroupe) {
-        // GROUPE - Compatible tous clients email avec couleurs forcées
+        // GROUPE - Sans fond pour compatibilité mode clair/sombre
         html = '<div style="font-family:' + font + '; font-size:12pt; color:#000000 !important; max-width:600px; line-height:1.2;">' +
                '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-bottom:1px;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
                serviceHtml +
@@ -196,7 +197,7 @@
                '<div style="margin-top:14px; margin-bottom:0;"><img src="' + logoGroupe + '" alt="Groupe Potel & Chabot" style="display:block; border:none; max-width:100%; height:auto; width:311px;" width="311"></div>' +
                '</div>';
       } else {
-        // POTEL - Compatible tous clients email avec couleurs forcées
+        // POTEL
         var emailLine = email;
         var phonesLine = "";
         
