@@ -176,7 +176,7 @@
       var serviceHtml = "";
       if (cleanService) {
         if (isGroupe) {
-          serviceHtml = '<div style="display:inline-block; background:#000; color:#fff; font-size:12pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:1px; letter-spacing:0px;">' + cleanService.toUpperCase() + '</div>';
+          serviceHtml = '<div style="display:inline-block; background:#000000; color:#ffffff; font-size:12pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:1px; letter-spacing:0px;">' + cleanService.toUpperCase() + '</div>';
         } else {
           serviceHtml = " — " + cleanService;
         }
@@ -185,55 +185,40 @@
       var html = "";
       
       if (isGroupe) {
-        // GROUPE - Gros interligne (24px) toujours après le Poste, peu importe l'élément suivant
-        html = '<div style="font-family:' + font + '; font-size:12pt; color:#000; max-width:600px; line-height:1.2;">' +
-               '<div style="font-size:12pt; font-weight:bold; margin-bottom:1px;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
+        // GROUPE - Compatible tous clients email avec couleurs forcées
+        html = '<div style="font-family:' + font + '; font-size:12pt; color:#000000 !important; max-width:600px; line-height:1.2;">' +
+               '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-bottom:1px;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
                serviceHtml +
-               '<div style="font-size:12pt; font-weight:bold; margin-top:1px; margin-bottom:24px;">' + jobTitleUpper + '</div>' +
-               (phones ? '<div style="font-size:12pt; font-weight:bold; margin-bottom:1px;">' + phones + '</div>' : '') +
-               '<div style="font-size:12pt; font-weight:bold; margin-top:1px; margin-bottom:1px;">' + email + '</div>' +
-               '<div style="font-size:12pt; font-weight:bold; margin-top:1px;">' + address + '</div>' +
-               '<div style="margin-top:14px;"><img src="' + logoGroupe + '" style="display:block; border:none; max-width:100%; height:auto; width:311px;"></div>' +
-               '</div>' +
-               '<style>' +
-               '@media screen and (max-width: 480px) {' +
-               '  div { text-align: center !important; }' +
-               '  img { margin: 0 auto !important; max-width: 280px !important; }' +
-               '}' +
-               '</style>';
+               '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px; margin-bottom:24px;">' + jobTitleUpper + '</div>' +
+               (phones ? '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-bottom:1px;">' + phones + '</div>' : '') +
+               '<div style="font-size:12pt; font-weight:bold; margin:0; padding:0; margin-top:1px; margin-bottom:1px;"><a href="mailto:' + email + '" style="color:#0066cc; text-decoration:none;">' + email + '</a></div>' +
+               '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px;">' + address + '</div>' +
+               '<div style="margin-top:14px; margin-bottom:0;"><img src="' + logoGroupe + '" alt="Groupe Potel & Chabot" style="display:block; border:none; max-width:100%; height:auto; width:311px;" width="311"></div>' +
+               '</div>';
       } else {
-        // POTEL - 14pt nom/prénom, 12pt reste, logo 320x98, responsive amélioré
+        // POTEL - Compatible tous clients email avec couleurs forcées
         var emailLine = email;
         var phonesLine = "";
         
         if (phone1 && phone2) {
-          phonesLine = '<div style="font-size:12pt; margin-top:3px; color:#000; white-space: nowrap;">' + phones + '</div>';
+          phonesLine = '<div style="font-size:12pt; color:#000000 !important; margin:0; padding:0; margin-top:3px;">' + phones + '</div>';
         } else if (phone1 || phone2) {
           emailLine = email + " — " + formatPhone(phone1 || phone2);
         }
 
-        html = '<table style="width:100%; max-width:750px; table-layout:fixed; font-family:' + font + '; font-size:12pt; color:#000;" cellpadding="0" cellspacing="0" border="0">' +
+        html = '<table style="width:100%; max-width:750px; border-collapse:collapse; font-family:' + font + '; font-size:12pt; color:#000000;" cellpadding="0" cellspacing="0" border="0">' +
                '<tr>' +
-               '<td class="logo-cell" style="vertical-align:middle; padding-right:15px; width:320px;">' +
-               '<img src="' + logoPotel + '" style="display:block; border:none; width:320px; height:98px; max-width:100%; height:auto;">' +
+               '<td style="vertical-align:middle; padding-right:15px; width:320px; padding:0;">' +
+               '<img src="' + logoPotel + '" alt="Potel & Chabot" style="display:block; border:none; width:320px; height:98px; max-width:100%; height:auto;" width="320" height="98">' +
                '</td>' +
-               '<td class="separator-cell" style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:98px; background:#bbb;"></div></td>' +
-               '<td class="text-cell" style="vertical-align:middle; padding-left:15px; width:auto;">' +
-               '<div style="font-size:14pt; font-weight:bold; white-space: nowrap;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
-               '<div style="font-size:12pt; margin-top:2px; white-space: nowrap;">' + jobTitle + serviceHtml + '</div>' +
-               '<div style="font-size:12pt; margin-top:3px; white-space: nowrap;">' + address + '</div>' +
-               '<div style="font-size:12pt; margin-top:3px; white-space: nowrap;">' + emailLine + '</div>' +
+               '<td style="width:1px; background-color:#bbbbbb; vertical-align:middle; padding:0;"><div style="width:1px; height:98px; background-color:#bbbbbb; font-size:1px; line-height:1px;">&nbsp;</div></td>' +
+               '<td style="vertical-align:middle; padding-left:15px; padding-top:0; padding-bottom:0; padding-right:0;">' +
+               '<div style="font-size:14pt; font-weight:bold; color:#000000 !important; margin:0; padding:0;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
+               '<div style="font-size:12pt; color:#000000 !important; margin:0; padding:0; margin-top:2px;">' + jobTitle + serviceHtml + '</div>' +
+               '<div style="font-size:12pt; color:#000000 !important; margin:0; padding:0; margin-top:3px;">' + address + '</div>' +
+               '<div style="font-size:12pt; margin:0; padding:0; margin-top:3px;"><a href="mailto:' + emailLine + '" style="color:#0066cc; text-decoration:none;">' + emailLine + '</a></div>' +
                phonesLine +
-               '</td></tr></table>' +
-               '<style>' +
-               '@media screen and (max-width: 768px) {' +
-               '  table { display: block !important; width: 100% !important; }' +
-               '  .logo-cell, .text-cell { display: block !important; width: 100% !important; text-align: center !important; padding: 10px 0 !important; }' +
-               '  .separator-cell { display: none !important; }' +
-               '  .text-cell div { white-space: normal !important; }' +
-               '  img { margin: 0 auto !important; max-width: 280px !important; width: 100% !important; height: auto !important; }' +
-               '}' +
-               '</style>';
+               '</td></tr></table>';
       }
 
       document.getElementById("preview").innerHTML = html;
