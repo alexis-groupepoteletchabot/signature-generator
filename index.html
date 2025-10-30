@@ -118,8 +118,7 @@
   </div>
 
   <div class="instructions">
-    <strong>Instructions :</strong> Remplissez le formulaire, copiez votre signature, puis collez-la dans Outlook.<br>
-    <strong>⚠️ Note :</strong> Si le logo Groupe n'apparaît pas bien sur fond noir, contactez-moi pour créer une version adaptée.
+    <strong>Instructions :</strong> Remplissez le formulaire, copiez votre signature, puis collez-la dans Outlook.
   </div>
 
   <div id="preview">
@@ -186,18 +185,18 @@
       var html = "";
       
       if (isGroupe) {
-        // GROUPE - Sans fond pour compatibilité mode clair/sombre
+        // GROUPE - Email en noir comme le reste
         html = '<div style="font-family:' + font + '; font-size:12pt; color:#000000 !important; max-width:600px; line-height:1.2;">' +
                '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-bottom:1px;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
                serviceHtml +
                '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px; margin-bottom:24px;">' + jobTitleUpper + '</div>' +
                (phones ? '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-bottom:1px;">' + phones + '</div>' : '') +
-               '<div style="font-size:12pt; font-weight:bold; margin:0; padding:0; margin-top:1px; margin-bottom:1px;"><a href="mailto:' + email + '" style="color:#0066cc; text-decoration:none;">' + email + '</a></div>' +
+               '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px; margin-bottom:1px;">' + email + '</div>' +
                '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px;">' + address + '</div>' +
                '<div style="margin-top:14px; margin-bottom:0;"><img src="' + logoGroupe + '" alt="Groupe Potel & Chabot" style="display:block; border:none; max-width:100%; height:auto; width:311px;" width="311"></div>' +
                '</div>';
       } else {
-        // POTEL
+        // POTEL - Email en noir comme le reste
         var emailLine = email;
         var phonesLine = "";
         
@@ -217,7 +216,7 @@
                '<div style="font-size:14pt; font-weight:bold; color:#000000 !important; margin:0; padding:0;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
                '<div style="font-size:12pt; color:#000000 !important; margin:0; padding:0; margin-top:2px;">' + jobTitle + serviceHtml + '</div>' +
                '<div style="font-size:12pt; color:#000000 !important; margin:0; padding:0; margin-top:3px;">' + address + '</div>' +
-               '<div style="font-size:12pt; margin:0; padding:0; margin-top:3px;"><a href="mailto:' + emailLine + '" style="color:#0066cc; text-decoration:none;">' + emailLine + '</a></div>' +
+               '<div style="font-size:12pt; color:#000000 !important; margin:0; padding:0; margin-top:3px;">' + emailLine + '</div>' +
                phonesLine +
                '</td></tr></table>';
       }
