@@ -185,12 +185,12 @@
       var html = "";
       
       if (isGroupe) {
-        // GROUPE - Tout en 12pt, interligne plus fort entre poste et téléphone
+        // GROUPE - Tout en 12pt, interligne plus fort entre poste et téléphone (18px)
         html = '<div style="font-family:' + font + '; font-size:12pt; color:#000; max-width:600px;">' +
                '<div style="font-size:12pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
                serviceHtml +
                '<div style="font-size:12pt; font-weight:bold; margin-top:3px;">' + jobTitleUpper + '</div>' +
-               (phones ? '<div style="font-size:12pt; font-weight:bold; margin-top:12px;">' + phones + '</div>' : '') +
+               (phones ? '<div style="font-size:12pt; font-weight:bold; margin-top:18px;">' + phones + '</div>' : '') +
                '<div style="font-size:12pt; font-weight:bold; margin-top:3px;">' + email + '</div>' +
                '<div style="font-size:12pt; font-weight:bold; margin-top:3px;">' + address + '</div>' +
                '<div style="margin-top:14px;"><img src="' + logoGroupe + '" style="display:block; border:none; max-width:100%; height:auto; width:311px;"></div>' +
@@ -202,7 +202,7 @@
                '}' +
                '</style>';
       } else {
-        // POTEL - 14pt nom/prénom, 12pt reste
+        // POTEL - 14pt nom/prénom, 12pt reste, logo 320x98
         var emailLine = email;
         var phonesLine = "";
         
@@ -214,10 +214,10 @@
 
         html = '<table style="width:100%; max-width:750px; table-layout:fixed; font-family:' + font + '; font-size:12pt; color:#000;" cellpadding="0" cellspacing="0" border="0">' +
                '<tr>' +
-               '<td class="logo-cell" style="vertical-align:middle; padding-right:15px; width:280px;">' +
-               '<img src="' + logoPotel + '" style="display:block; border:none; width:280px; height:86px;">' +
+               '<td class="logo-cell" style="vertical-align:middle; padding-right:15px; width:320px;">' +
+               '<img src="' + logoPotel + '" style="display:block; border:none; width:320px; height:98px;">' +
                '</td>' +
-               '<td class="separator-cell" style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:86px; background:#bbb;"></div></td>' +
+               '<td class="separator-cell" style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:98px; background:#bbb;"></div></td>' +
                '<td class="text-cell" style="vertical-align:middle; padding-left:15px; width:auto;">' +
                '<div style="font-size:14pt; font-weight:bold; white-space: nowrap;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
                '<div style="font-size:12pt; margin-top:2px; white-space: nowrap;">' + jobTitle + serviceHtml + '</div>' +
@@ -282,14 +282,11 @@
     function openOutlookApp() {
       var userAgent = navigator.userAgent || navigator.vendor || window.opera;
       
-      // Détection mobile
       var isMobile = /android|iphone|ipad|ipod/i.test(userAgent.toLowerCase());
       
       if (isMobile) {
-        // Sur mobile, essayer d'ouvrir l'app via le protocole
         window.location.href = "ms-outlook://";
         
-        // Fallback vers le store si l'app n'est pas installée
         setTimeout(function() {
           if (/android/i.test(userAgent)) {
             window.location.href = "https://play.google.com/store/apps/details?id=com.microsoft.office.outlook";
@@ -300,14 +297,12 @@
         
         alert("📱 Tentative d'ouverture de l'app Outlook mobile...\nSi l'app ne s'ouvre pas, vous serez redirigé vers le store.");
       } else {
-        // Sur desktop, ouvrir le client Outlook via le protocole
         window.location.href = "outlook:";
         
         alert("💻 Tentative d'ouverture du client Outlook desktop...\n\nSi cela ne fonctionne pas, ouvrez Outlook manuellement et allez dans :\nFichier > Options > Courrier > Signatures");
       }
     }
 
-    // Initialisation
     var inputs = document.querySelectorAll("input, select");
     for (var i = 0; i < inputs.length; i++) {
       inputs[i].addEventListener("input", updatePreview);
