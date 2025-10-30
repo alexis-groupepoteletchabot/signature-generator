@@ -185,12 +185,12 @@
       var html = "";
       
       if (isGroupe) {
-        // GROUPE - Interlignes réduits (1px) sauf entre Poste et Téléphone (24px)
+        // GROUPE - Gros interligne (24px) toujours après le Poste, peu importe l'élément suivant
         html = '<div style="font-family:' + font + '; font-size:12pt; color:#000; max-width:600px; line-height:1.2;">' +
                '<div style="font-size:12pt; font-weight:bold; margin-bottom:1px;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
                serviceHtml +
-               '<div style="font-size:12pt; font-weight:bold; margin-top:1px; margin-bottom:1px;">' + jobTitleUpper + '</div>' +
-               (phones ? '<div style="font-size:12pt; font-weight:bold; margin-top:24px; margin-bottom:1px;">' + phones + '</div>' : '') +
+               '<div style="font-size:12pt; font-weight:bold; margin-top:1px; margin-bottom:24px;">' + jobTitleUpper + '</div>' +
+               (phones ? '<div style="font-size:12pt; font-weight:bold; margin-bottom:1px;">' + phones + '</div>' : '') +
                '<div style="font-size:12pt; font-weight:bold; margin-top:1px; margin-bottom:1px;">' + email + '</div>' +
                '<div style="font-size:12pt; font-weight:bold; margin-top:1px;">' + address + '</div>' +
                '<div style="margin-top:14px;"><img src="' + logoGroupe + '" style="display:block; border:none; max-width:100%; height:auto; width:311px;"></div>' +
