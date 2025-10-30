@@ -48,8 +48,16 @@
       background: #0066cc;
       color: white;
     }
-    .outlook-btn {
+    .outlook-web-btn {
       background: #0078d4;
+      color: white;
+    }
+    .outlook-app-btn {
+      background: #106ebe;
+      color: white;
+    }
+    .download-btn {
+      background: #28a745;
       color: white;
     }
     #preview {
@@ -64,13 +72,6 @@
       padding: 15px;
       border-radius: 5px;
       margin: 20px 0;
-    }
-    .logo-section {
-      background: #fff3cd;
-      padding: 15px;
-      border-radius: 5px;
-      margin: 20px 0;
-      border: 1px solid #ffeaa7;
     }
   </style>
 </head>
@@ -111,7 +112,9 @@
 
   <div class="buttons">
     <button class="copy-btn" onclick="copySignature()">📋 Copier la signature</button>
-    <button class="outlook-btn" onclick="openOutlook()">📧 Ouvrir Outlook</button>
+    <button class="download-btn" onclick="downloadSignature()">💾 Télécharger HTML</button>
+    <button class="outlook-web-btn" onclick="openOutlookWeb()">🌐 Ouvrir Outlook Web</button>
+    <button class="outlook-app-btn" onclick="openOutlookApp()">📧 Ouvrir l'app Outlook</button>
   </div>
 
   <div class="instructions">
@@ -123,10 +126,9 @@
   </div>
 
   <script>
-    // 🔥 REMPLACE CES DEUX LIGNES PAR TES VRAIS LOGOS BASE64
     var logoGroupe = "https://pub-931fda2ddb7a4c2bbec8e89d1253445c.r2.dev/Logo_Groupe_Mail.webp";
     var logoPotel = "https://pub-931fda2ddb7a4c2bbec8e89d1253445c.r2.dev/Logo_Potel_Mail.webp";
-      
+
     function formatPhone(phone) {
       if (!phone) return "";
       var cleaned = phone.replace(/[^\d+]/g, "");
@@ -145,128 +147,164 @@
       return phone;
     }
 
-  function updatePreview() {
-  var firstName = document.getElementById("firstName").value || "PRÉNOM";
-  var lastName = document.getElementById("lastName").value || "NOM";
-  var brand = document.getElementById("brand").value;
-  var service = document.getElementById("service").value;
-  var jobTitle = document.getElementById("jobTitle").value || "Poste";
-  var address = document.getElementById("address").value;
-  var email = document.getElementById("email").value || "email@exemple.com";
-  var phone1 = document.getElementById("phone1").value;
-  var phone2 = document.getElementById("phone2").value;
+    function updatePreview() {
+      var firstName = document.getElementById("firstName").value || "PRÉNOM";
+      var lastName = document.getElementById("lastName").value || "NOM";
+      var brand = document.getElementById("brand").value;
+      var service = document.getElementById("service").value;
+      var jobTitle = document.getElementById("jobTitle").value || "Poste";
+      var address = document.getElementById("address").value;
+      var email = document.getElementById("email").value || "email@exemple.com";
+      var phone1 = document.getElementById("phone1").value;
+      var phone2 = document.getElementById("phone2").value;
 
-  var isGroupe = brand === "groupe";
-  var font = isGroupe ? "Arial, sans-serif" : "Times, serif";
-  
-  // Transformation en majuscules pour l'affichage ET la copie
-  var firstNameUpper = firstName.toUpperCase();
-  var lastNameUpper = lastName.toUpperCase();
-  var jobTitleUpper = isGroupe ? jobTitle.toUpperCase() : jobTitle;
-  
-  var phones = "";
-  if (phone1 && phone2) {
-    phones = formatPhone(phone1) + " — " + formatPhone(phone2);
-  } else if (phone1 || phone2) {
-    phones = formatPhone(phone1 || phone2);
-  }
+      var isGroupe = brand === "groupe";
+      var font = isGroupe ? "Arial, sans-serif" : "Times, serif";
+      
+      var firstNameUpper = firstName.toUpperCase();
+      var lastNameUpper = lastName.toUpperCase();
+      var jobTitleUpper = isGroupe ? jobTitle.toUpperCase() : jobTitle;
+      
+      var phones = "";
+      if (phone1 && phone2) {
+        phones = formatPhone(phone1) + " — " + formatPhone(phone2);
+      } else if (phone1 || phone2) {
+        phones = formatPhone(phone1 || phone2);
+      }
 
-  // Service sans espaces parasites
-  var cleanService = service.replace(/^\s+|\s+$/g, "");
-  var serviceHtml = "";
-  if (cleanService) {
-    if (isGroupe) {
-      serviceHtml = '<div style="display:inline-block; background:#000; color:#fff; font-size:10pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:6px; letter-spacing:0px;">' + cleanService.toUpperCase() + '</div>';
-    } else {
-      serviceHtml = " — " + cleanService;
+      var cleanService = service.replace(/^\s+|\s+$/g, "");
+      var serviceHtml = "";
+      if (cleanService) {
+        if (isGroupe) {
+          serviceHtml = '<div style="display:inline-block; background:#000; color:#fff; font-size:12pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:3px; letter-spacing:0px;">' + cleanService.toUpperCase() + '</div>';
+        } else {
+          serviceHtml = " — " + cleanService;
+        }
+      }
+
+      var html = "";
+      
+      if (isGroupe) {
+        // GROUPE - Tout en 12pt, interligne plus fort entre poste et téléphone
+        html = '<div style="font-family:' + font + '; font-size:12pt; color:#000; max-width:600px;">' +
+               '<div style="font-size:12pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
+               serviceHtml +
+               '<div style="font-size:12pt; font-weight:bold; margin-top:3px;">' + jobTitleUpper + '</div>' +
+               (phones ? '<div style="font-size:12pt; font-weight:bold; margin-top:12px;">' + phones + '</div>' : '') +
+               '<div style="font-size:12pt; font-weight:bold; margin-top:3px;">' + email + '</div>' +
+               '<div style="font-size:12pt; font-weight:bold; margin-top:3px;">' + address + '</div>' +
+               '<div style="margin-top:14px;"><img src="' + logoGroupe + '" style="display:block; border:none; max-width:100%; height:auto; width:311px;"></div>' +
+               '</div>' +
+               '<style>' +
+               '@media screen and (max-width: 480px) {' +
+               '  div { text-align: center !important; }' +
+               '  img { margin: 0 auto !important; max-width: 280px !important; }' +
+               '}' +
+               '</style>';
+      } else {
+        // POTEL - 14pt nom/prénom, 12pt reste
+        var emailLine = email;
+        var phonesLine = "";
+        
+        if (phone1 && phone2) {
+          phonesLine = '<div style="font-size:12pt; margin-top:3px; color:#000;">' + phones + '</div>';
+        } else if (phone1 || phone2) {
+          emailLine = email + " — " + formatPhone(phone1 || phone2);
+        }
+
+        html = '<table style="width:100%; max-width:750px; table-layout:fixed; font-family:' + font + '; font-size:12pt; color:#000;" cellpadding="0" cellspacing="0" border="0">' +
+               '<tr>' +
+               '<td class="logo-cell" style="vertical-align:middle; padding-right:15px; width:280px;">' +
+               '<img src="' + logoPotel + '" style="display:block; border:none; width:280px; height:86px;">' +
+               '</td>' +
+               '<td class="separator-cell" style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:86px; background:#bbb;"></div></td>' +
+               '<td class="text-cell" style="vertical-align:middle; padding-left:15px; width:auto;">' +
+               '<div style="font-size:14pt; font-weight:bold; white-space: nowrap;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
+               '<div style="font-size:12pt; margin-top:2px; white-space: nowrap;">' + jobTitle + serviceHtml + '</div>' +
+               '<div style="font-size:12pt; margin-top:3px; white-space: nowrap;">' + address + '</div>' +
+               '<div style="font-size:12pt; margin-top:3px; white-space: nowrap;">' + emailLine + '</div>' +
+               phonesLine +
+               '</td></tr></table>' +
+               '<style>' +
+               '@media screen and (max-width: 480px) {' +
+               '  table { display: block !important; width: 100% !important; }' +
+               '  .logo-cell, .text-cell { display: block !important; width: 100% !important; text-align: center !important; padding: 10px 0 !important; }' +
+               '  .separator-cell { display: none !important; }' +
+               '  img { margin: 0 auto !important; max-width: 280px !important; }' +
+               '}' +
+               '</style>';
+      }
+
+      document.getElementById("preview").innerHTML = html;
     }
-  }
-
-  var html = "";
-  
-  if (isGroupe) {
-    // GROUPE - Version responsive
-    html = '<div style="font-family:' + font + '; font-size:10pt; color:#000; max-width:600px;">' +
-           '<div style="font-size:12pt; font-weight:bold;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
-           serviceHtml +
-           '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + jobTitleUpper + '</div>' +
-           (phones ? '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + phones + '</div>' : '') +
-           '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + email + '</div>' +
-           '<div style="font-size:10pt; font-weight:bold; margin-top:6px;">' + address + '</div>' +
-           '<div style="margin-top:14px;"><img src="' + logoGroupe + '" style="display:block; border:none; max-width:100%; height:auto; width:311px;"></div>' +
-           '</div>' +
-           
-           // CSS responsive pour Groupe
-           '<style>' +
-           '@media screen and (max-width: 480px) {' +
-           '  div { text-align: center !important; }' +
-           '  img { margin: 0 auto !important; max-width: 280px !important; }' +
-           '}' +
-           '</style>';
-  } else {
-    // POTEL - Version responsive
-    var emailLine = email;
-    var phonesLine = "";
-    
-    if (phone1 && phone2) {
-      phonesLine = '<div style="font-size:10pt; margin-top:3px; color:#000;">' + phones + '</div>';
-    } else if (phone1 || phone2) {
-      emailLine = email + " — " + formatPhone(phone1 || phone2);
-    }
-
-    html = '<table style="width:100%; max-width:750px; table-layout:fixed; font-family:' + font + '; font-size:10pt; color:#000;" cellpadding="0" cellspacing="0" border="0">' +
-           '<tr>' +
-           '<td class="logo-cell" style="vertical-align:middle; padding-right:15px; width:280px;">' +
-           '<img src="' + logoPotel + '" style="display:block; border:none; width:280px; height:86px;">' +
-           '</td>' +
-           '<td class="separator-cell" style="width:1px; background:#bbb; vertical-align:middle;"><div style="width:1px; height:86px; background:#bbb;"></div></td>' +
-           '<td class="text-cell" style="vertical-align:middle; padding-left:15px; width:auto;">' +
-           '<div style="font-size:12pt; font-weight:bold; white-space: nowrap;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
-           '<div style="font-size:10pt; margin-top:2px; white-space: nowrap;">' + jobTitle + serviceHtml + '</div>' +
-           '<div style="font-size:10pt; margin-top:3px; white-space: nowrap;">' + address + '</div>' +
-           '<div style="font-size:10pt; margin-top:3px; white-space: nowrap;">' + emailLine + '</div>' +
-           phonesLine +
-           '</td></tr></table>' +
-           
-           // CSS responsive pour Potel
-           '<style>' +
-           '@media screen and (max-width: 480px) {' +
-           '  table { display: block !important; width: 100% !important; }' +
-           '  .logo-cell, .text-cell { display: block !important; width: 100% !important; text-align: center !important; padding: 10px 0 !important; }' +
-           '  .separator-cell { display: none !important; }' +
-           '  img { margin: 0 auto !important; max-width: 280px !important; }' +
-           '}' +
-           '</style>';
-  }
-
-  document.getElementById("preview").innerHTML = html;
-}
 
     async function copySignature() {
       var html = document.getElementById("preview").innerHTML;
       
       try {
-        // Essaie de copier en tant qu'HTML formaté (pour Outlook)
         var blob = new Blob([html], { type: 'text/html' });
         var clipboardItem = new ClipboardItem({ 'text/html': blob });
         await navigator.clipboard.write([clipboardItem]);
         alert("✅ Signature copiée avec formatage ! Vous pouvez la coller dans Outlook.");
       } catch (e) {
         try {
-          // Fallback : copie HTML en texte
           await navigator.clipboard.writeText(html);
           alert("✅ Signature copiée (code HTML). Collez dans Outlook et le formatage sera appliqué.");
         } catch (e2) {
-          // Dernière option : sélection manuelle
           alert("❌ Copie automatique impossible.\n\nSélectionnez manuellement le contenu de l'aperçu et copiez-le (Ctrl+C).");
         }
       }
     }
 
-    function openOutlook() {
+    function downloadSignature() {
+      var html = document.getElementById("preview").innerHTML;
+      var fullHtml = '<!DOCTYPE html>\n<html>\n<head>\n<meta charset="UTF-8">\n<title>Signature Email</title>\n</head>\n<body>\n' + html + '\n</body>\n</html>';
+      
+      var blob = new Blob([fullHtml], { type: 'text/html' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'signature-email.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      alert("✅ Fichier HTML téléchargé !");
+    }
+
+    function openOutlookWeb() {
       var url = "https://outlook.office.com/mail/options/mail/messageFormat";
       window.open(url, '_blank');
-      alert("📧 Outlook s'ouvre dans un nouvel onglet.\nAllez dans Paramètres > Signature et collez votre signature !");
+      alert("🌐 Outlook Web s'ouvre dans un nouvel onglet.\nAllez dans Paramètres > Signature et collez votre signature !");
+    }
+
+    function openOutlookApp() {
+      var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      
+      // Détection mobile
+      var isMobile = /android|iphone|ipad|ipod/i.test(userAgent.toLowerCase());
+      
+      if (isMobile) {
+        // Sur mobile, essayer d'ouvrir l'app via le protocole
+        window.location.href = "ms-outlook://";
+        
+        // Fallback vers le store si l'app n'est pas installée
+        setTimeout(function() {
+          if (/android/i.test(userAgent)) {
+            window.location.href = "https://play.google.com/store/apps/details?id=com.microsoft.office.outlook";
+          } else if (/iphone|ipad|ipod/i.test(userAgent)) {
+            window.location.href = "https://apps.apple.com/app/microsoft-outlook/id951937596";
+          }
+        }, 1500);
+        
+        alert("📱 Tentative d'ouverture de l'app Outlook mobile...\nSi l'app ne s'ouvre pas, vous serez redirigé vers le store.");
+      } else {
+        // Sur desktop, ouvrir le client Outlook via le protocole
+        window.location.href = "outlook:";
+        
+        alert("💻 Tentative d'ouverture du client Outlook desktop...\n\nSi cela ne fonctionne pas, ouvrez Outlook manuellement et allez dans :\nFichier > Options > Courrier > Signatures");
+      }
     }
 
     // Initialisation
@@ -276,7 +314,6 @@
       inputs[i].addEventListener("change", updatePreview);
     }
 
-    // Première génération
     updatePreview();
   </script>
 </body>
