@@ -127,7 +127,7 @@
 
   <script>
     var logoGroupe = "https://pub-931fda2ddb7a4c2bbec8e89d1253445c.r2.dev/GroupePC%20-%20600.png";
-    var logoPotel = "https://pub-931fda2ddb7a4c2bbec8e89d1253445c.r2.dev/Potel%20-%20600.png";
+    var logoPotel = "https://pub-931fda2ddb7a4c2bbec8e89d1253445c.r2.dev/Potel%20-%20300.png";
 
     function formatPhone(phone) {
       if (!phone) return "";
@@ -196,27 +196,30 @@
                '<table style="margin-top:10px; margin-bottom:0; border-collapse:collapse;" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#ffffff; padding:2px 2px 2px 0;"><img src="' + logoGroupe + '" alt="Groupe Potel & Chabot" style="display:block; border:none; max-width:100%; height:auto; width:311px;" width="311"></td></tr></table>' +
                '</div>';
       } else {
-        // POTEL
+        // POTEL - Nom 12pt sans gras, reste 10pt, barre alignée sur hauteur du texte
         var emailLine = email;
         var phonesLine = "";
         
         if (phone1 && phone2) {
-          phonesLine = '<div style="font-size:12pt; color:#000000 !important; margin:0; padding:0; margin-top:3px;">' + phones + '</div>';
+          phonesLine = '<div style="font-size:10pt; color:#000000 !important; margin:0; padding:0; margin-top:3px;">' + phones + '</div>';
         } else if (phone1 || phone2) {
           emailLine = email + " — " + formatPhone(phone1 || phone2);
         }
 
-        html = '<table style="width:100%; max-width:750px; border-collapse:collapse; font-family:' + font + '; font-size:12pt; color:#000000;" cellpadding="0" cellspacing="0" border="0">' +
+        // Calculer la hauteur du contenu texte pour ajuster la barre
+        var textHeight = "auto";
+
+        html = '<table style="width:100%; max-width:750px; border-collapse:collapse; font-family:' + font + '; font-size:10pt; color:#000000;" cellpadding="0" cellspacing="0" border="0">' +
                '<tr>' +
-               '<td style="vertical-align:middle; padding-right:15px; width:320px; padding:0;">' +
-               '<img src="' + logoPotel + '" alt="Potel & Chabot" style="display:block; border:none; width:320px; height:98px; max-width:100%; height:auto;" width="320" height="98">' +
+               '<td style="vertical-align:middle; padding-right:15px; width:160px; padding:0;">' +
+               '<img src="' + logoPotel + '" alt="Potel & Chabot" style="display:block; border:none; width:160px; height:49px; max-width:100%; height:auto;" width="160" height="49">' +
                '</td>' +
-               '<td style="width:1px; background-color:#bbbbbb; vertical-align:middle; padding:0;"><div style="width:1px; height:98px; background-color:#bbbbbb; font-size:1px; line-height:1px;">&nbsp;</div></td>' +
+               '<td style="width:1px; background-color:#000000; vertical-align:middle; padding:0;"><div style="width:1px; height:100%; background-color:#000000; font-size:1px; line-height:1px;">&nbsp;</div></td>' +
                '<td style="vertical-align:middle; padding-left:15px; padding-top:0; padding-bottom:0; padding-right:0;">' +
-               '<div style="font-size:14pt; font-weight:bold; color:#000000 !important; margin:0; padding:0;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
-               '<div style="font-size:12pt; color:#000000 !important; margin:0; padding:0; margin-top:2px;">' + jobTitle + serviceHtml + '</div>' +
-               '<div style="font-size:12pt; color:#000000 !important; margin:0; padding:0; margin-top:3px;">' + address + '</div>' +
-               '<div style="font-size:12pt; color:#000000 !important; margin:0; padding:0; margin-top:3px;"><span style="color:#000000 !important; text-decoration:none;">' + emailLine + '</span></div>' +
+               '<div style="font-size:12pt; font-weight:normal; color:#000000 !important; margin:0; padding:0;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
+               '<div style="font-size:10pt; color:#000000 !important; margin:0; padding:0; margin-top:2px;">' + jobTitle + serviceHtml + '</div>' +
+               '<div style="font-size:10pt; color:#000000 !important; margin:0; padding:0; margin-top:3px;">' + address + '</div>' +
+               '<div style="font-size:10pt; color:#000000 !important; margin:0; padding:0; margin-top:3px;"><span style="color:#000000 !important; text-decoration:none;">' + emailLine + '</span></div>' +
                phonesLine +
                '</td></tr></table>';
       }
