@@ -73,6 +73,10 @@
       border-radius: 5px;
       margin: 20px 0;
     }
+    #customAddressField {
+      display: none;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -98,7 +102,19 @@
     <input type="text" id="jobTitle" placeholder="Ex : Directrice Marketing">
 
     <label>Adresse</label>
-    <input type="text" id="address" value="3 rue de Chaillot — PARIS XVI">
+    <select id="addressSelect">
+      <option value="3 rue de Chaillot — PARIS XVI">Chaillot</option>
+      <option value="Pavillon Gabriel - 5 Av. Gabriel PARIS VIII">Pavillon Gabriel</option>
+      <option value="Pavillon Vendôme - 7 Pl. Vendôme, PARIS I">Pavillon Vendôme</option>
+      <option value="Hôtel d'Evreux - 19 Pl. Vendôme, PARIS I">Hôtel d'Evreux</option>
+      <option value="Pavillon Cambon Capucines - 46 Rue Cambon PARIS I">Pavillon Cambon Capucines</option>
+      <option value="custom">Autre (saisie manuelle)</option>
+    </select>
+    
+    <div id="customAddressField">
+      <label>Adresse personnalisée</label>
+      <input type="text" id="customAddress" placeholder="Saisissez votre adresse">
+    </div>
 
     <label>Email</label>
     <input type="email" id="email" placeholder="prenom.nom@poteletchabot.fr">
@@ -129,6 +145,17 @@
     var logoGroupe = "https://pub-931fda2ddb7a4c2bbec8e89d1253445c.r2.dev/GroupePC%20-%20600.png";
     var logoPotel = "https://pub-931fda2ddb7a4c2bbec8e89d1253445c.r2.dev/Potel%20-%20600.png";
 
+    // Gestion de l'affichage du champ adresse personnalisée
+    document.getElementById("addressSelect").addEventListener("change", function() {
+      var customField = document.getElementById("customAddressField");
+      if (this.value === "custom") {
+        customField.style.display = "block";
+      } else {
+        customField.style.display = "none";
+      }
+      updatePreview();
+    });
+
     function formatPhone(phone) {
       if (!phone) return "";
       var cleaned = phone.replace(/[^\d+]/g, "");
@@ -147,13 +174,21 @@
       return phone;
     }
 
+    function getAddress() {
+      var addressSelect = document.getElementById("addressSelect").value;
+      if (addressSelect === "custom") {
+        return document.getElementById("customAddress").value || "Adresse";
+      }
+      return addressSelect;
+    }
+
     function updatePreview() {
       var firstName = document.getElementById("firstName").value || "PRÉNOM";
       var lastName = document.getElementById("lastName").value || "NOM";
       var brand = document.getElementById("brand").value;
       var service = document.getElementById("service").value;
       var jobTitle = document.getElementById("jobTitle").value || "Poste";
-      var address = document.getElementById("address").value;
+      var address = getAddress();
       var email = document.getElementById("email").value || "email@exemple.com";
       var phone1 = document.getElementById("phone1").value;
       var phone2 = document.getElementById("phone2").value;
@@ -294,6 +329,9 @@
       inputs[i].addEventListener("input", updatePreview);
       inputs[i].addEventListener("change", updatePreview);
     }
+
+    // Listener spécifique pour le champ d'adresse personnalisée
+    document.getElementById("customAddress").addEventListener("input", updatePreview);
 
     updatePreview();
   </script>
