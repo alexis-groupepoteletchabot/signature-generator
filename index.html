@@ -176,7 +176,7 @@
       var serviceHtml = "";
       if (cleanService) {
         if (isGroupe) {
-          serviceHtml = '<div style="display:inline-block; background:#000000; color:#ffffff; font-size:12pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:1px; letter-spacing:0px;">' + cleanService.toUpperCase() + '</div>';
+          serviceHtml = '<div style="display:inline-block; background:#000000; color:#ffffff; font-size:10pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:1px; letter-spacing:0px;">' + cleanService.toUpperCase() + '</div>';
         } else {
           serviceHtml = " — " + cleanService;
         }
@@ -185,18 +185,18 @@
       var html = "";
       
       if (isGroupe) {
-        // GROUPE - Interligne réduit à 18px, email sans lien
-        html = '<div style="font-family:' + font + '; font-size:12pt; color:#000000 !important; max-width:600px; line-height:1.2;">' +
-               '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-bottom:1px;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
+        // GROUPE - Texte 10pt, logo aligné avec le texte (padding réduit)
+        html = '<div style="font-family:' + font + '; font-size:10pt; color:#000000 !important; max-width:600px; line-height:1.2;">' +
+               '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-bottom:1px;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
                serviceHtml +
-               '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px; margin-bottom:10px;">' + jobTitleUpper + '</div>' +
-               (phones ? '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-bottom:1px;">' + phones + '</div>' : '') +
-               '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px; margin-bottom:1px;"><span style="color:#000000 !important; text-decoration:none;">' + email + '</span></div>' +
-               '<div style="font-size:12pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px;">' + address + '</div>' +
-               '<table style="margin-top:10px; margin-bottom:0; border-collapse:collapse;" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#ffffff; padding:8px;"><img src="' + logoGroupe + '" alt="Groupe Potel & Chabot" style="display:block; border:none; max-width:100%; height:auto; width:311px;" width="311"></td></tr></table>' +
+               '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px; margin-bottom:10px;">' + jobTitleUpper + '</div>' +
+               (phones ? '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-bottom:1px;">' + phones + '</div>' : '') +
+               '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px; margin-bottom:1px;"><span style="color:#000000 !important; text-decoration:none;">' + email + '</span></div>' +
+               '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px;">' + address + '</div>' +
+               '<table style="margin-top:10px; margin-bottom:0; border-collapse:collapse;" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#ffffff; padding:2px 2px 2px 0;"><img src="' + logoGroupe + '" alt="Groupe Potel & Chabot" style="display:block; border:none; max-width:100%; height:auto; width:311px;" width="311"></td></tr></table>' +
                '</div>';
       } else {
-        // POTEL - Email sans lien
+        // POTEL
         var emailLine = email;
         var phonesLine = "";
         
