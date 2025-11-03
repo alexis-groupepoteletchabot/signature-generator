@@ -231,10 +231,10 @@
                (phones ? '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-bottom:1px;">' + phones + '</div>' : '') +
                '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px; margin-bottom:1px;"><span style="color:#000000 !important; text-decoration:none;">' + email + '</span></div>' +
                '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px;">' + address + '</div>' +
-               '<table style="margin-top:10px; margin-bottom:0; border-collapse:collapse;" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#ffffff; padding:2px 2px 2px 0;"><img src="' + logoGroupe + '" alt="Groupe Potel & Chabot" style="display:block; border:none; max-width:100%; height:auto; width:250px;" width="200"></td></tr></table>' +
+               '<table style="margin-top:10px; margin-bottom:0; border-collapse:collapse;" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#ffffff; padding:2px 2px 2px 0;"><img src="' + logoGroupe + '" alt="Groupe Potel & Chabot" style="display:block; border:none; max-width:100%; height:auto; width:200px;" width="200"></td></tr></table>' +
                '</div>';
       } else {
-        // POTEL - Logo réduit à 220px (hauteur 68px)
+        // POTEL - Logo 180px, texte sans nowrap pour adaptation mobile
         var emailLine = email;
         var phonesLine = "";
         
@@ -244,13 +244,13 @@
           emailLine = email + " — " + formatPhone(phone1 || phone2);
         }
 
-        html = '<table style="width:100%; max-width:750px; border-collapse:collapse; font-family:' + font + '; font-size:10pt; color:#000000;" cellpadding="0" cellspacing="0" border="0">' +
+        html = '<table style="width:100%; max-width:650px; border-collapse:collapse; font-family:' + font + '; font-size:10pt; color:#000000;" cellpadding="0" cellspacing="0" border="0">' +
                '<tr>' +
-               '<td style="vertical-align:middle; padding-right:15px; width:220px; padding:0;">' +
-               '<img src="' + logoPotel + '" alt="Potel & Chabot" style="display:block; border:none; width:220px; height:68px; max-width:100%; height:auto;" width="220" height="68">' +
+               '<td style="vertical-align:middle; padding-right:12px; width:180px; padding:0;">' +
+               '<img src="' + logoPotel + '" alt="Potel & Chabot" style="display:block; border:none; width:180px; height:55px; max-width:100%; height:auto;" width="180" height="55">' +
                '</td>' +
                '<td style="width:1px; background-color:#000000; vertical-align:middle; padding:0;"><div style="width:1px; height:100%; background-color:#000000; font-size:1px; line-height:1px;">&nbsp;</div></td>' +
-               '<td style="vertical-align:middle; padding-left:15px; padding-top:0; padding-bottom:0; padding-right:0;">' +
+               '<td style="vertical-align:middle; padding-left:12px; padding-top:0; padding-bottom:0; padding-right:0;">' +
                '<div style="font-size:12pt; font-weight:normal; color:#000000 !important; margin:0; padding:0;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
                '<div style="font-size:10pt; color:#000000 !important; margin:0; padding:0; margin-top:2px;">' + jobTitle + serviceHtml + '</div>' +
                '<div style="font-size:10pt; color:#000000 !important; margin:0; padding:0; margin-top:3px;">' + address + '</div>' +
