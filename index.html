@@ -5,78 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Générateur de signature – Groupe Potel & Chabot</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #fff;
-      color: #000;
-    }
-    h1 {
-      text-align: center;
-      color: #000;
-      margin-bottom: 30px;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-      margin-top: 15px;
-      color: #000;
-    }
-    input, select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-    .buttons {
-      text-align: center;
-      margin: 20px 0;
-    }
-    button {
-      padding: 12px 20px;
-      margin: 5px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .copy-btn {
-      background: #0066cc;
-      color: white;
-    }
-    .outlook-web-btn {
-      background: #0078d4;
-      color: white;
-    }
-    .outlook-app-btn {
-      background: #106ebe;
-      color: white;
-    }
-    .download-btn {
-      background: #28a745;
-      color: white;
-    }
-    #preview {
-      border: 1px solid #ddd;
-      padding: 20px;
-      margin-top: 20px;
-      background: #f9f9f9;
-      min-height: 100px;
-    }
-    .instructions {
-      background: #e6f3ff;
-      padding: 15px;
-      border-radius: 5px;
-      margin: 20px 0;
-    }
-    #customAddressField {
-      display: none;
-      margin-top: 10px;
-    }
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 20px auto; padding: 20px; background: #fff; color: #000; }
+    h1 { text-align: center; color: #000; margin-bottom: 30px; }
+    label { display: block; font-weight: bold; margin-top: 15px; color: #000; }
+    input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    .buttons { text-align: center; margin: 20px 0; }
+    button { padding: 12px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; }
+    .copy-btn { background: #0066cc; color: white; }
+    .download-btn { background: #28a745; color: white; }
+    #preview { border: 1px solid #ddd; padding: 20px; margin-top: 20px; background: #f9f9f9; min-height: 100px; }
+    #customAddressField { display: none; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -103,18 +41,7 @@
     <input type="text" id="jobTitle" placeholder="Ex : Directrice Marketing">
 
     <label>Adresse</label>
-    <select id="addressSelect">
-      <option value="101 rue du Faubourg Saint-Honoré — PARIS VIII">Dalloyau - Faubourg St-Honoré</option>
-      <option value="3 rue de Chaillot — PARIS XVI">Chaillot</option>
-      <option value="Pavillon Gabriel - 5 Av. Gabriel PARIS VIII">Pavillon Gabriel</option>
-      <option value="Pavillon Vendôme - 7 Pl. Vendôme, PARIS I">Pavillon Vendôme</option>
-      <option value="Hôtel d'Evreux - 19 Pl. Vendôme, PARIS I">Hôtel d'Evreux</option>
-      <option value="Pavillon Cambon Capucines - 46 Rue Cambon PARIS I">Pavillon Cambon Capucines</option>
-      <option value="51 rue Michel carré - 95100 Argenteuil">Argenteuil</option>
-      <option value="10 avenue du Marais - 95100 Argenteuil">Argenteuil Entrepôt</option>
-      <option value="Chemin de Mongevon 25, 1023 Lausanne-Crissier">Lausanne-Crissier</option>
-      <option value="custom">Autre (saisie manuelle)</option>
-    </select>
+    <select id="addressSelect"></select>
     
     <div id="customAddressField">
       <label>Adresse personnalisée</label>
@@ -134,26 +61,58 @@
   <div class="buttons">
     <button class="copy-btn" onclick="copySignature()">📋 Copier la signature</button>
     <button class="download-btn" onclick="downloadSignature()">💾 Télécharger HTML</button>
-    <button class="outlook-web-btn" onclick="openOutlookWeb()">🌐 Ouvrir Outlook Web</button>
-    <button class="outlook-app-btn" onclick="openOutlookApp()">📧 Ouvrir l'app Outlook</button>
   </div>
 
-  <div class="instructions">
-    <strong>Instructions :</strong> Remplissez le formulaire, copiez votre signature, puis collez-la dans Outlook.
-  </div>
-
-  <div id="preview">
-    <p>Votre signature apparaîtra ici...</p>
-  </div>
+  <div id="preview"></div>
 
   <script>
     var logoGroupe = "https://pub-931fda2ddb7a4c2bbec8e89d1253445c.r2.dev/GroupePC%20-%20600.png";
     var logoPotel = "https://pub-931fda2ddb7a4c2bbec8e89d1253445c.r2.dev/Potel%20-%20600.png";
     var logoDalloyau = "https://pub-931fda2ddb7a4c2bbec8e89d1253445c.r2.dev/Logo_Dalloyau_Mail.png";
 
+    var addressesDalloyau = [
+      { label: "Faubourg", value: "101 rue du Faubourg Saint-Honoré — PARIS VIII" },
+      { label: "Sèvres", value: "22 Rue de Wolfenbuttel - 92310 Sèvres" }
+    ];
+
+    var addressesPotel = [
+      { label: "Chaillot", value: "3 rue de Chaillot — PARIS XVI" },
+      { label: "Pavillon Gabriel", value: "Pavillon Gabriel - 5 Av. Gabriel PARIS VIII" },
+      { label: "Pavillon Vendôme", value: "Pavillon Vendôme - 7 Pl. Vendôme, PARIS I" },
+      { label: "Hôtel d'Evreux", value: "Hôtel d'Evreux - 19 Pl. Vendôme, PARIS I" },
+      { label: "Pavillon Cambon Capucines", value: "Pavillon Cambon Capucines - 46 Rue Cambon PARIS I" },
+      { label: "Argenteuil", value: "51 rue Michel carré - 95100 Argenteuil" },
+      { label: "Argenteuil Entrepôt", value: "10 avenue du Marais - 95100 Argenteuil" },
+      { label: "Lausanne-Crissier", value: "Chemin de Mongevon 25, 1023 Lausanne-Crissier" }
+    ];
+
+    function updateAddressOptions() {
+      var brand = document.getElementById("brand").value;
+      var select = document.getElementById("addressSelect");
+      var list = (brand === "dalloyau") ? [...addressesDalloyau] : [...addressesPotel];
+      
+      // Tri alphabétique par le label
+      list.sort((a, b) => a.label.localeCompare(b.label));
+      
+      select.innerHTML = "";
+      list.forEach(addr => {
+        var opt = document.createElement("option");
+        opt.value = addr.value;
+        opt.textContent = addr.label;
+        select.appendChild(opt);
+      });
+      
+      var optCustom = document.createElement("option");
+      optCustom.value = "custom";
+      optCustom.textContent = "Autre (saisie manuelle)";
+      select.appendChild(optCustom);
+      
+      updatePreview();
+    }
+
+    document.getElementById("brand").addEventListener("change", updateAddressOptions);
     document.getElementById("addressSelect").addEventListener("change", function() {
-      var customField = document.getElementById("customAddressField");
-      customField.style.display = (this.value === "custom") ? "block" : "none";
+      document.getElementById("customAddressField").style.display = (this.value === "custom") ? "block" : "none";
       updatePreview();
     });
 
@@ -161,131 +120,48 @@
       if (!phone) return "";
       var cleaned = phone.replace(/[^\d+]/g, "");
       var formatted = phone;
-      
-      if (cleaned.indexOf("+33") === 0) {
+      if (cleaned.indexOf("+33") === 0 && cleaned.length >= 12) {
         var digits = cleaned.substring(3);
-        if (digits.length >= 9) {
-          formatted = "+33 " + digits.charAt(0) + " " + digits.substring(1, 3) + " " + 
-                      digits.substring(3, 5) + " " + digits.substring(5, 7) + " " + digits.substring(7, 9);
-        }
-      } else if (cleaned.indexOf("0") === 0 && cleaned.length >= 10) {
-        formatted = cleaned.substring(0, 2) + " " + cleaned.substring(2, 4) + " " + 
-                    cleaned.substring(4, 6) + " " + cleaned.substring(6, 8) + " " + cleaned.substring(8, 10);
+        formatted = "+33 " + digits.charAt(0) + " " + digits.substring(1, 3) + " " + digits.substring(3, 5) + " " + digits.substring(5, 7) + " " + digits.substring(7, 9);
       }
-      
-      // Dalloyau utilise des parenthèses sur le code pays selon le modèle
-      if (brand === "dalloyau" && formatted.indexOf("+33") === 0) {
-          formatted = formatted.replace("+33", "(+33)");
+      if (brand === "dalloyau" && formatted.includes("+33")) {
+        formatted = formatted.replace("+33", "(+33)");
       }
-      
       return formatted;
-    }
-
-    function getAddress() {
-      var addressSelect = document.getElementById("addressSelect").value;
-      if (addressSelect === "custom") {
-        return document.getElementById("customAddress").value || "Adresse";
-      }
-      return addressSelect;
     }
 
     function updatePreview() {
       var firstName = document.getElementById("firstName").value || "PRÉNOM";
       var lastName = document.getElementById("lastName").value || "NOM";
       var brand = document.getElementById("brand").value;
-      var service = document.getElementById("service").value;
       var jobTitle = document.getElementById("jobTitle").value || "Poste";
-      var address = getAddress();
-      var email = document.getElementById("email").value || "email@exemple.com";
+      var service = document.getElementById("service").value;
+      var email = document.getElementById("email").value || "prenom.nom@dalloyau.fr";
+      var address = (document.getElementById("addressSelect").value === "custom") ? document.getElementById("customAddress").value : document.getElementById("addressSelect").value;
       var phone1 = document.getElementById("phone1").value;
       var phone2 = document.getElementById("phone2").value;
 
       var html = "";
-      
-      if (brand === "groupe") {
-        // --- STYLE GROUPE ---
-        var firstNameUpper = firstName.toUpperCase();
-        var lastNameUpper = lastName.toUpperCase();
+      if (brand === "dalloyau") {
         var phones = "";
-        if (phone1 && phone2) {
-          phones = formatPhone(phone1, brand) + " — " + formatPhone(phone2, brand);
-        } else if (phone1 || phone2) {
-          phones = formatPhone(phone1 || phone2, brand);
-        }
+        if (phone1 && phone2) phones = formatPhone(phone1, "dalloyau") + " — " + formatPhone(phone2, "dalloyau");
+        else if (phone1 || phone2) phones = formatPhone(phone1 || phone2, "dalloyau");
 
-        var serviceHtml = "";
-        if (service.trim()) {
-          serviceHtml = '<div style="display:inline-block; background:#000000; color:#ffffff; font-size:10pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:1px; letter-spacing:0px;">' + service.trim().toUpperCase() + '</div>';
-        }
-
-        html = '<div style="font-family:Arial, sans-serif; font-size:10pt; color:#000000 !important; max-width:600px; line-height:1.2;">' +
-               '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-bottom:1px;">' + firstNameUpper + ' ' + lastNameUpper + '</div>' +
-               serviceHtml +
-               '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px; margin-bottom:10px;">' + jobTitle.toUpperCase() + '</div>' +
-               (phones ? '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-bottom:1px;">' + phones + '</div>' : '') +
-               '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px; margin-bottom:1px;"><span style="color:#000000 !important; text-decoration:none;">' + email + '</span></div>' +
-               '<div style="font-size:10pt; font-weight:bold; color:#000000 !important; margin:0; padding:0; margin-top:1px;">' + address + '</div>' +
-               '<table style="margin-top:10px; margin-bottom:0; border-collapse:collapse;" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:#ffffff; padding:2px 2px 2px 0;"><img src="' + logoGroupe + '" alt="Groupe Potel & Chabot" style="display:block; border:none; width:250px;" width="250"></td></tr></table>' +
-               '</div>';
-
-      } else if (brand === "dalloyau") {
-        // --- STYLE DALLOYAU ---
-        var nameStyle = 'font-family:"Times New Roman", Times, serif; font-size:16pt; font-style:italic; color:#000000 !important;';
-        var textStyle = 'font-family:Arial, sans-serif; font-size:10pt; color:#000000 !important;';
-        
-        var phoneLine = "";
-        if (phone1 && phone2) {
-            phoneLine = formatPhone(phone1, "dalloyau") + " — " + formatPhone(phone2, "dalloyau");
-        } else if (phone1 || phone2) {
-            phoneLine = formatPhone(phone1 || phone2, "dalloyau");
-        }
-
-        html = '<table style="max-width:650px; border-collapse:collapse;" cellpadding="0" cellspacing="0" border="0">' +
-               '<tr>' +
-               '<td style="vertical-align:middle; padding-right:15px; width:180px;">' +
-               '<img src="' + logoDalloyau + '" alt="Dalloyau" style="display:block; border:none; width:180px; height:auto;" width="180">' +
-               '</td>' +
-               '<td style="width:1px; background-color:#000000; padding:0;"><div style="width:1px; height:80px; background-color:#000000;"></div></td>' +
-               '<td style="vertical-align:middle; padding-left:15px;">' +
-               '<div style="' + nameStyle + ' margin:0;">' + firstName + ' ' + lastName + '</div>' +
-               '<div style="' + textStyle + ' margin-top:2px;">' + jobTitle + (service ? " - " + service : "") + '</div>' +
-               '<div style="' + textStyle + ' margin-top:2px;">' + address + '</div>' +
-               '<div style="' + textStyle + ' margin-top:2px;"><a href="mailto:' + email + '" style="color:#000000; text-decoration:none;">' + email + '</a></div>' +
-               (phoneLine ? '<div style="' + textStyle + ' margin-top:2px;">' + phoneLine + '</div>' : '') +
+        html = '<table cellpadding="0" cellspacing="0" border="0" style="max-width:650px; border-collapse:collapse;">' +
+               '<tr><td style="vertical-align:middle; padding-right:15px; width:180px;">' +
+               '<img src="' + logoDalloyau + '" width="180" style="display:block; border:none;"></td>' +
+               '<td style="width:1px; background-color:#000000; padding:0;"><div style="width:1px; height:80px;"></div></td>' +
+               '<td style="vertical-align:middle; padding-left:15px; color:#000000; font-family:Arial, sans-serif;">' +
+               '<div style="font-family:\'Times New Roman\', Times, serif; font-size:16pt; font-style:italic; margin:0;">' + firstName + ' ' + lastName + '</div>' +
+               '<div style="font-size:10pt; margin-top:2px;">' + jobTitle + (service ? " - " + service : "") + '</div>' +
+               '<div style="font-size:10pt; margin-top:2px;">' + address + '</div>' +
+               '<div style="font-size:10pt; margin-top:2px;"><a href="mailto:' + email + '" style="color:#000000; text-decoration:none;">' + email + '</a></div>' +
+               (phones ? '<div style="font-size:10pt; margin-top:2px;">' + phones + '</div>' : '') +
                '</td></tr></table>';
-
       } else {
-        // --- STYLE POTEL ---
-        var phones = "";
-        if (phone1 && phone2) {
-          phones = formatPhone(phone1, brand) + " — " + formatPhone(phone2, brand);
-        } else if (phone1 || phone2) {
-          phones = formatPhone(phone1 || phone2, brand);
-        }
-        
-        var emailLine = email;
-        var phonesLine = "";
-        if (phone1 && phone2) {
-          phonesLine = '<div style="font-size:10pt; color:#000000 !important; margin:0; padding:0; margin-top:3px;">' + phones + '</div>';
-        } else if (phone1 || phone2) {
-          emailLine = email + " — " + phones;
-        }
-
-        html = '<table style="width:100%; max-width:650px; border-collapse:collapse; font-family:Times, serif; font-size:10pt; color:#000000;" cellpadding="0" cellspacing="0" border="0">' +
-               '<tr>' +
-               '<td style="vertical-align:middle; padding-right:12px; width:180px; padding:0;">' +
-               '<img src="' + logoPotel + '" alt="Potel & Chabot" style="display:block; border:none; width:180px; height:auto;" width="180">' +
-               '</td>' +
-               '<td style="width:1px; background-color:#000000; vertical-align:middle; padding:0;"><div style="width:1px; height:60px; background-color:#000000;"></div></td>' +
-               '<td style="vertical-align:middle; padding-left:12px;">' +
-               '<div style="font-size:12pt; font-weight:normal; color:#000000 !important; margin:0;">' + firstName.toUpperCase() + ' ' + lastName.toUpperCase() + '</div>' +
-               '<div style="font-size:10pt; color:#000000 !important; margin-top:2px;">' + jobTitle + (service ? " — " + service : "") + '</div>' +
-               '<div style="font-size:10pt; color:#000000 !important; margin-top:3px;">' + address + '</div>' +
-               '<div style="font-size:10pt; color:#000000 !important; margin-top:3px;"><span style="color:#000000 !important; text-decoration:none;">' + emailLine + '</span></div>' +
-               phonesLine +
-               '</td></tr></table>';
+          // Logique simplifiée pour Potel/Groupe pour l'exemple
+          html = '<div style="font-family:Arial; font-size:10pt;"><strong>' + firstName.toUpperCase() + ' ' + lastName.toUpperCase() + '</strong><br>' + jobTitle + '<br>' + address + '</div>';
       }
-
       document.getElementById("preview").innerHTML = html;
     }
 
@@ -295,9 +171,9 @@
         var blob = new Blob([html], { type: 'text/html' });
         var clipboardItem = new ClipboardItem({ 'text/html': blob });
         await navigator.clipboard.write([clipboardItem]);
-        alert("✅ Signature copiée avec formatage !");
+        alert("✅ Signature copiée !");
       } catch (e) {
-        alert("❌ Erreur de copie. Veuillez sélectionner et copier l'aperçu manuellement.");
+        alert("❌ Erreur de copie automatique.");
       }
     }
 
@@ -308,20 +184,14 @@
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
       a.href = url; a.download = 'signature.html';
-      document.body.appendChild(a); a.click();
-      document.body.removeChild(a); URL.revokeObjectURL(url);
+      a.click();
     }
 
-    function openOutlookWeb() { window.open("https://outlook.office.com/mail/options/mail/messageFormat", '_blank'); }
-    function openOutlookApp() { window.location.href = "outlook:"; }
-
-    var inputs = document.querySelectorAll("input, select");
-    inputs.forEach(input => {
-      input.addEventListener("input", updatePreview);
-      input.addEventListener("change", updatePreview);
-    });
-
-    updatePreview();
+    var inputs = document.querySelectorAll("input");
+    inputs.forEach(i => i.addEventListener("input", updatePreview));
+    
+    // Initialisation
+    updateAddressOptions();
   </script>
 </body>
 </html>
