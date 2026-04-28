@@ -12,8 +12,11 @@
     .buttons { text-align: center; margin: 20px 0; }
     button { padding: 12px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; }
     .copy-btn { background: #0066cc; color: white; }
+    .outlook-web-btn { background: #0078d4; color: white; }
+    .outlook-app-btn { background: #106ebe; color: white; }
     .download-btn { background: #28a745; color: white; }
     #preview { border: 1px solid #ddd; padding: 20px; margin-top: 20px; background: #f9f9f9; min-height: 100px; }
+    .instructions { background: #e6f3ff; padding: 15px; border-radius: 5px; margin: 20px 0; }
     #customAddressField { display: none; margin-top: 10px; }
   </style>
 </head>
@@ -61,6 +64,8 @@
   <div class="buttons">
     <button class="copy-btn" onclick="copySignature()">📋 Copier la signature</button>
     <button class="download-btn" onclick="downloadSignature()">💾 Télécharger HTML</button>
+    <button class="outlook-web-btn" onclick="openOutlookWeb()">🌐 Ouvrir Outlook Web</button>
+    <button class="outlook-app-btn" onclick="openOutlookApp()">📧 Ouvrir l'app Outlook</button>
   </div>
 
   <div id="preview"></div>
@@ -90,8 +95,6 @@
       var brand = document.getElementById("brand").value;
       var select = document.getElementById("addressSelect");
       var list = (brand === "dalloyau") ? [...addressesDalloyau] : [...addressesPotel];
-      
-      // Tri alphabétique par le label
       list.sort((a, b) => a.label.localeCompare(b.label));
       
       select.innerHTML = "";
@@ -106,15 +109,8 @@
       optCustom.value = "custom";
       optCustom.textContent = "Autre (saisie manuelle)";
       select.appendChild(optCustom);
-      
       updatePreview();
     }
-
-    document.getElementById("brand").addEventListener("change", updateAddressOptions);
-    document.getElementById("addressSelect").addEventListener("change", function() {
-      document.getElementById("customAddressField").style.display = (this.value === "custom") ? "block" : "none";
-      updatePreview();
-    });
 
     function formatPhone(phone, brand) {
       if (!phone) return "";
@@ -123,6 +119,8 @@
       if (cleaned.indexOf("+33") === 0 && cleaned.length >= 12) {
         var digits = cleaned.substring(3);
         formatted = "+33 " + digits.charAt(0) + " " + digits.substring(1, 3) + " " + digits.substring(3, 5) + " " + digits.substring(5, 7) + " " + digits.substring(7, 9);
+      } else if (cleaned.indexOf("0") === 0 && cleaned.length >= 10) {
+        formatted = cleaned.substring(0, 2) + " " + cleaned.substring(2, 4) + " " + cleaned.substring(4, 6) + " " + cleaned.substring(6, 8) + " " + cleaned.substring(8, 10);
       }
       if (brand === "dalloyau" && formatted.includes("+33")) {
         formatted = formatted.replace("+33", "(+33)");
@@ -134,37 +132,88 @@
       var firstName = document.getElementById("firstName").value || "PRÉNOM";
       var lastName = document.getElementById("lastName").value || "NOM";
       var brand = document.getElementById("brand").value;
-      var jobTitle = document.getElementById("jobTitle").value || "Poste";
       var service = document.getElementById("service").value;
-      var email = document.getElementById("email").value || "prenom.nom@dalloyau.fr";
+      var jobTitle = document.getElementById("jobTitle").value || "Poste";
       var address = (document.getElementById("addressSelect").value === "custom") ? document.getElementById("customAddress").value : document.getElementById("addressSelect").value;
+      var email = document.getElementById("email").value || "email@exemple.com";
       var phone1 = document.getElementById("phone1").value;
       var phone2 = document.getElementById("phone2").value;
 
       var html = "";
-      if (brand === "dalloyau") {
+
+      if (brand === "groupe") {
+        // STYLE GROUPE (Original)
+        var phones = "";
+        if (phone1 && phone2) phones = formatPhone(phone1, brand) + " — " + formatPhone(phone2, brand);
+        else if (phone1 || phone2) phones = formatPhone(phone1 || phone2, brand);
+
+        var serviceHtml = "";
+        if (service.trim()) {
+          serviceHtml = '<div style="display:inline-block; background:#000000; color:#ffffff; font-size:10pt; font-weight:bold; text-transform:uppercase; padding:4px 8px; margin-top:1px;">' + service.trim().toUpperCase() + '</div>';
+        }
+
+        html = '<div style="font-family:Arial, sans-serif; font-size:10pt; color:#000000 !important; line-height:1.2;">' +
+               '<div style="font-weight:bold; margin-bottom:1px;">' + firstName.toUpperCase() + ' ' + lastName.toUpperCase() + '</div>' +
+               serviceHtml +
+               '<div style="font-weight:bold; margin-top:1px; margin-bottom:10px;">' + jobTitle.toUpperCase() + '</div>' +
+               (phones ? '<div style="font-weight:bold; margin-bottom:1px;">' + phones + '</div>' : '') +
+               '<div style="font-weight:bold; margin-bottom:1px;"><span style="color:#000000 !important; text-decoration:none;">' + email + '</span></div>' +
+               '<div style="font-weight:bold;">' + address + '</div>' +
+               '<table style="margin-top:10px; border-collapse:collapse;"><tr><td><img src="' + logoGroupe + '" width="250" style="display:block;"></td></tr></table>' +
+               '</div>';
+
+      } else if (brand === "potel") {
+        // STYLE POTEL (Original)
+        var phones = "";
+        if (phone1 && phone2) phones = formatPhone(phone1, brand) + " — " + formatPhone(phone2, brand);
+        else if (phone1 || phone2) phones = formatPhone(phone1 || phone2, brand);
+
+        var emailLine = email;
+        var phonesLine = "";
+        if (phone1 && phone2) {
+          phonesLine = '<div style="font-size:10pt; color:#000000 !important; margin-top:3px;">' + phones + '</div>';
+        } else if (phone1 || phone2) {
+          emailLine = email + " — " + formatPhone(phone1 || phone2, brand);
+        }
+
+        html = '<table style="max-width:650px; border-collapse:collapse; font-family:Times, serif; font-size:10pt; color:#000000;" cellpadding="0" cellspacing="0" border="0">' +
+               '<tr>' +
+               '<td style="vertical-align:middle; width:180px; padding:0;">' +
+               '<img src="' + logoPotel + '" width="180" style="display:block;">' +
+               '</td>' +
+               '<td style="width:1px; background-color:#000000;"><div style="width:1px; height:60px;"></div></td>' +
+               '<td style="vertical-align:middle; padding-left:12px;">' +
+               '<div style="font-size:12pt;">' + firstName.toUpperCase() + ' ' + lastName.toUpperCase() + '</div>' +
+               '<div style="margin-top:2px;">' + jobTitle + (service ? " — " + service : "") + '</div>' +
+               '<div style="margin-top:3px;">' + address + '</div>' +
+               '<div style="margin-top:3px;"><span style="text-decoration:none; color:#000000;">' + emailLine + '</span></div>' +
+               phonesLine +
+               '</td></tr></table>';
+
+      } else if (brand === "dalloyau") {
+        // STYLE DALLOYAU
         var phones = "";
         if (phone1 && phone2) phones = formatPhone(phone1, "dalloyau") + " — " + formatPhone(phone2, "dalloyau");
         else if (phone1 || phone2) phones = formatPhone(phone1 || phone2, "dalloyau");
 
         html = '<table cellpadding="0" cellspacing="0" border="0" style="max-width:650px; border-collapse:collapse;">' +
-               '<tr><td style="vertical-align:middle; padding-right:15px; width:180px;">' +
-               '<img src="' + logoDalloyau + '" width="180" style="display:block; border:none;"></td>' +
-               '<td style="width:1px; background-color:#000000; padding:0;"><div style="width:1px; height:80px;"></div></td>' +
+               '<tr>' +
+               '<td style="vertical-align:middle; padding-right:15px; width:180px;">' +
+               '<img src="' + logoDalloyau + '" width="180" style="display:block;"></td>' +
+               '<td style="width:1px; background-color:#000000;"><div style="width:1px; height:80px;"></div></td>' +
                '<td style="vertical-align:middle; padding-left:15px; color:#000000; font-family:Arial, sans-serif;">' +
-               '<div style="font-family:\'Times New Roman\', Times, serif; font-size:16pt; font-style:italic; margin:0;">' + firstName + ' ' + lastName + '</div>' +
+               '<div style="font-family:\'Times New Roman\', Times, serif; font-size:16pt; font-style:italic;">' + firstName + ' ' + lastName + '</div>' +
                '<div style="font-size:10pt; margin-top:2px;">' + jobTitle + (service ? " - " + service : "") + '</div>' +
                '<div style="font-size:10pt; margin-top:2px;">' + address + '</div>' +
                '<div style="font-size:10pt; margin-top:2px;"><a href="mailto:' + email + '" style="color:#000000; text-decoration:none;">' + email + '</a></div>' +
                (phones ? '<div style="font-size:10pt; margin-top:2px;">' + phones + '</div>' : '') +
                '</td></tr></table>';
-      } else {
-          // Logique simplifiée pour Potel/Groupe pour l'exemple
-          html = '<div style="font-family:Arial; font-size:10pt;"><strong>' + firstName.toUpperCase() + ' ' + lastName.toUpperCase() + '</strong><br>' + jobTitle + '<br>' + address + '</div>';
       }
+
       document.getElementById("preview").innerHTML = html;
     }
 
+    // Fonctions utilitaires (Copy, Download, etc.)
     async function copySignature() {
       var html = document.getElementById("preview").innerHTML;
       try {
@@ -172,9 +221,7 @@
         var clipboardItem = new ClipboardItem({ 'text/html': blob });
         await navigator.clipboard.write([clipboardItem]);
         alert("✅ Signature copiée !");
-      } catch (e) {
-        alert("❌ Erreur de copie automatique.");
-      }
+      } catch (e) { alert("❌ Erreur lors de la copie."); }
     }
 
     function downloadSignature() {
@@ -187,10 +234,18 @@
       a.click();
     }
 
-    var inputs = document.querySelectorAll("input");
-    inputs.forEach(i => i.addEventListener("input", updatePreview));
+    function openOutlookWeb() { window.open("https://outlook.office.com/mail/options/mail/messageFormat", '_blank'); }
+    function openOutlookApp() { window.location.href = "outlook:"; }
+
+    // Event Listeners
+    document.getElementById("brand").addEventListener("change", updateAddressOptions);
+    document.getElementById("addressSelect").addEventListener("change", function() {
+      document.getElementById("customAddressField").style.display = (this.value === "custom") ? "block" : "none";
+      updatePreview();
+    });
+    document.querySelectorAll("input").forEach(i => i.addEventListener("input", updatePreview));
     
-    // Initialisation
+    // Init
     updateAddressOptions();
   </script>
 </body>
